@@ -1,0 +1,63 @@
+﻿@using CINEMA.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h2>Available Movies</h2>
+<div class="movies-list">
+    @foreach (var movie in Model)
+    {
+        <div class="movie-card">
+            <h3>@movie.Title (@movie.Year)</h3>
+            <img src="@movie.CoverImage" alt="@movie.Title" width="150">
+            <p>@movie.Description</p>
+            <p><strong>Genre:</strong> @movie.Genre</p>
+            <p><strong>Duration:</strong> @movie.Duration min</p>
+            <p><strong>Country:</strong> @movie.Country</p>
+        </div>
+        <hr>
+    }
+</div>
+
+<style>
+    .movies-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .movie-card {
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 5px;
+        max-width: 300px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+    }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+
+        .movie-card img {
+            display: block;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            width: 100%;
+            height: auto;
+        }
+
+        .movie-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .movie-card p {
+            margin: 5px 0;
+        }
+
+        .movie-card hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+        }
+</style>
