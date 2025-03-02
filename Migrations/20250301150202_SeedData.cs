@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CINEMA.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class SeedData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -81,24 +81,24 @@ namespace CINEMA.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ActorMovie",
+                name: "ActorMovies",
                 columns: table => new
                 {
-                    ActorsId = table.Column<int>(type: "int", nullable: false),
-                    MoviesId = table.Column<int>(type: "int", nullable: false)
+                    ActorId = table.Column<int>(type: "int", nullable: false),
+                    MovieId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActorMovie", x => new { x.ActorsId, x.MoviesId });
+                    table.PrimaryKey("PK_ActorMovies", x => new { x.ActorId, x.MovieId });
                     table.ForeignKey(
-                        name: "FK_ActorMovie_Actors_ActorsId",
-                        column: x => x.ActorsId,
+                        name: "FK_ActorMovies_Actors_ActorId",
+                        column: x => x.ActorId,
                         principalTable: "Actors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ActorMovie_Movies_MoviesId",
-                        column: x => x.MoviesId,
+                        name: "FK_ActorMovies_Movies_MovieId",
+                        column: x => x.MovieId,
                         principalTable: "Movies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -173,9 +173,9 @@ namespace CINEMA.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActorMovie_MoviesId",
-                table: "ActorMovie",
-                column: "MoviesId");
+                name: "IX_ActorMovies_MovieId",
+                table: "ActorMovies",
+                column: "MovieId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Movies_DirectorId",
@@ -207,7 +207,7 @@ namespace CINEMA.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ActorMovie");
+                name: "ActorMovies");
 
             migrationBuilder.DropTable(
                 name: "Tickets");

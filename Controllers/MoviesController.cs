@@ -1,23 +1,30 @@
-﻿using Cinema.Data;
-using Cinema.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+
 
 namespace Cinema.Controllers
 {
-    public class MovieController : Controller
+    public class MoviesController : Controller
     {
         private readonly MovieDbContext _context;
 
-        public MovieController(MovieDbContext context)
+        public MoviesController(MovieDbContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            var movies = await _context.Movies.ToListAsync();
+            var movies = await _context.Movies
+                .Include(m => m.Actors)
+                .Include(m => m.Director)
+                .ToListAsync();
+
+            if (movies == null || !movies.Any())
+            {
+                return View(new List<Movies>());
+            }
+
             return View(movies);
         }
 
@@ -43,7 +50,7 @@ namespace Cinema.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Movie movie)
+        public async Task<IActionResult> Create(Movies movie)
         {
             if (ModelState.IsValid)
             {
@@ -52,6 +59,16 @@ namespace Cinema.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(movie);
+        }
+        public ActionResult Delete(int id)
+        {
+            var player = _context.Movies.Find(id);
+            if (player == null) return NotFound();
+
+            _context.Movies.Remove(player);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

@@ -1,8 +1,6 @@
-using Cinema.Data;
-using Cinema.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+
 
 namespace Cinema.Controllers
 {
@@ -15,7 +13,6 @@ namespace Cinema.Controllers
             _context = context;
         }
 
-
         public async Task<IActionResult> Index()
         {
             var movies = await _context.Movies
@@ -25,11 +22,12 @@ namespace Cinema.Controllers
 
             if (movies == null || !movies.Any())
             {
-                return View(new List<Movie>());
+                return View(new List<Movies>());
             }
 
             return View(movies);
         }
+
         public IActionResult Privacy()
         {
             return View();

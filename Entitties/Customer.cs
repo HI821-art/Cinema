@@ -1,4 +1,4 @@
-﻿namespace Cinema.Models
+﻿namespace CINEMA.Entitties
 {
     public class Customer
     {

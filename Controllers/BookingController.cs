@@ -1,5 +1,5 @@
 ﻿using Cinema.Data;
-using Cinema.Models;
+using CINEMA.Entitties;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

@@ -34,6 +34,11 @@ namespace CINEMA
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            app.MapControllerRoute(
+                name: "movies",
+                pattern: "Movies/{action=Index}/{id?}",
+                defaults: new { controller = "Movies", action = "Index" });
+
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
