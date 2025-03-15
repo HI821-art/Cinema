@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CINEMA.Entitties;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cinema.Controllers
 {
@@ -31,14 +32,35 @@ namespace Cinema.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.Genres = new SelectList(new[] { "Action", "Drama", "Comedy", "Horror", "Sci-Fi" });
+            ViewBag.Countries = new SelectList(new[] { "USA", "UK", "Canada", "Australia", "India" });
+            ViewBag.Directors = new SelectList(_context.Directors, "Id", "Name");
+            ViewBag.Actors = new MultiSelectList(_context.Actors, "Id", "Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Movie movie)
+        public async Task<IActionResult> Create( Movie movie, int[] selectedActors)
         {
-            if (!ModelState.IsValid) return View(movie);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Genres = new SelectList(new[] { "Action", "Drama", "Comedy", "Horror", "Sci-Fi" });
+                ViewBag.Countries = new SelectList(new[] { "USA", "UK", "Canada", "Australia", "India" });
+                ViewBag.Directors = new SelectList(_context.Directors, "Id", "Name", movie.DirectorId);
+                ViewBag.Actors = new MultiSelectList(_context.Actors, "Id", "Name", selectedActors);
+                return View(movie);
+            }
+
+            movie.Actors = new List<Actor>();
+            foreach (var actorId in selectedActors)
+            {
+                var actor = await _context.Actors.FindAsync(actorId);
+                if (actor != null)
+                {
+                    movie.Actors.Add(actor);
+                }
+            }
 
             _context.Add(movie);
             await _context.SaveChangesAsync();
@@ -49,21 +71,60 @@ namespace Cinema.Controllers
         {
             if (id == null) return NotFound();
 
-            var movie = await _context.Movies.FindAsync(id);
+            var movie = await _context.Movies
+                .Include(m => m.Actors)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null) return NotFound();
 
+            ViewBag.Genres = new SelectList(new[] { "Action", "Drama", "Comedy", "Horror", "Sci-Fi" }, movie.Genre);
+            ViewBag.Countries = new SelectList(new[] { "USA", "UK", "Canada", "Australia", "India" }, movie.Country);
+            ViewBag.Directors = new SelectList(_context.Directors, "Id", "Name", movie.DirectorId);
+            ViewBag.Actors = new MultiSelectList(_context.Actors, "Id", "Name", movie.Actors.Select(a => a.Id));
             return View(movie);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  Movie movie)
+        public async Task<IActionResult> Edit(int id, Movie movie, int[] selectedActors)
         {
             if (id != movie.Id) return NotFound();
 
-            if (!ModelState.IsValid) return View(movie);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Genres = new SelectList(new[] { "Action", "Drama", "Comedy", "Horror", "Sci-Fi" }, movie.Genre);
+                ViewBag.Countries = new SelectList(new[] { "USA", "UK", "Canada", "Australia", "India" }, movie.Country);
+                ViewBag.Directors = new SelectList(_context.Directors, "Id", "Name", movie.DirectorId);
+                ViewBag.Actors = new MultiSelectList(_context.Actors, "Id", "Name", selectedActors);
+                return View(movie);
+            }
 
-            _context.Update(movie);
+            var movieToUpdate = await _context.Movies
+                .Include(m => m.Actors)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (movieToUpdate == null) return NotFound();
+
+            movieToUpdate.Title = movie.Title;
+            movieToUpdate.Year = movie.Year;
+            movieToUpdate.Description = movie.Description;
+            movieToUpdate.Genre = movie.Genre;
+            movieToUpdate.Duration = movie.Duration;
+            movieToUpdate.CoverImage = movie.CoverImage;
+            movieToUpdate.Country = movie.Country;
+            movieToUpdate.TrailerUrl = movie.TrailerUrl;
+            movieToUpdate.DirectorId = movie.DirectorId;
+
+            movieToUpdate.Actors.Clear();
+            foreach (var actorId in selectedActors)
+            {
+                var actor = await _context.Actors.FindAsync(actorId);
+                if (actor != null)
+                {
+                    movieToUpdate.Actors.Add(actor);
+                }
+            }
+
+            _context.Update(movieToUpdate);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
