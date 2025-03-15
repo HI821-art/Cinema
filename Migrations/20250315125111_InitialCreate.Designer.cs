@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CINEMA.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20250301150202_SeedData")]
-    partial class SeedData
+    [Migration("20250315125111_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,6 +102,54 @@ namespace CINEMA.Migrations
                     b.ToTable("Directors");
                 });
 
+            modelBuilder.Entity("CINEMA.Entitties.Movie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CoverImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DirectorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrailerUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DirectorId");
+
+                    b.ToTable("Movies");
+                });
+
             modelBuilder.Entity("CINEMA.Entitties.Seat", b =>
                 {
                     b.Property<int>("Id")
@@ -174,54 +222,6 @@ namespace CINEMA.Migrations
                     b.ToTable("Tickets");
                 });
 
-            modelBuilder.Entity("Movies", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CoverImage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DirectorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Genre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TrailerUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DirectorId");
-
-                    b.ToTable("Movies");
-                });
-
             modelBuilder.Entity("ActorMovies", b =>
                 {
                     b.HasOne("Actor", null)
@@ -230,11 +230,22 @@ namespace CINEMA.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movies", null)
+                    b.HasOne("CINEMA.Entitties.Movie", null)
                         .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CINEMA.Entitties.Movie", b =>
+                {
+                    b.HasOne("CINEMA.Entitties.Director", "Director")
+                        .WithMany("Movies")
+                        .HasForeignKey("DirectorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Director");
                 });
 
             modelBuilder.Entity("CINEMA.Entitties.Seat", b =>
@@ -250,7 +261,7 @@ namespace CINEMA.Migrations
 
             modelBuilder.Entity("CINEMA.Entitties.Session", b =>
                 {
-                    b.HasOne("Movies", "Movie")
+                    b.HasOne("CINEMA.Entitties.Movie", "Movie")
                         .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -276,17 +287,6 @@ namespace CINEMA.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Seat");
-                });
-
-            modelBuilder.Entity("Movies", b =>
-                {
-                    b.HasOne("CINEMA.Entitties.Director", "Director")
-                        .WithMany("Movies")
-                        .HasForeignKey("DirectorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Director");
                 });
 
             modelBuilder.Entity("CINEMA.Entitties.Customer", b =>

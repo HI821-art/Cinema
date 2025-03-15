@@ -1,5 +1,4 @@
-﻿using Cinema.Data;
-using CINEMA.Entitties;
+﻿using CINEMA.Entitties;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

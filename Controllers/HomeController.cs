@@ -1,36 +1,38 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using CINEMA.Models;
 
+namespace Cinema.Controllers;
 
-namespace Cinema.Controllers
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly ILogger<HomeController> _logger;
+    private readonly MovieDbContext _context;
+
+    public HomeController(ILogger<HomeController> logger, MovieDbContext context)
     {
-        private readonly MovieDbContext _context;
+        _logger = logger;
+        _context = context;
+    }
 
-        public HomeController(MovieDbContext context)
-        {
-            _context = context;
-        }
+    public IActionResult Index()
+    {
+        return View(_context.Movies.ToList());
+    }
 
-        public async Task<IActionResult> Index()
-        {
-            var movies = await _context.Movies
-                .Include(m => m.Actors)
-                .Include(m => m.Director)
-                .ToListAsync();
+    public IActionResult Privacy()
+    {
+        return View();
+    }
 
-            if (movies == null || !movies.Any())
-            {
-                return View(new List<Movies>());
-            }
+    public IActionResult About()
+    {
+        return View();
+    }
 
-            return View(movies);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

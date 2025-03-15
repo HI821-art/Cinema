@@ -16,27 +16,30 @@ if (context.Movies.Any())
 return;
 }
 
-var actors = new[]
-{
-new Actor { Name = "Leonardo DiCaprio", Biography = "An American actor, producer, and environmentalist." },
-new Actor { Name = "Matt Damon", Biography = "An American actor, film producer, and screenwriter." },
-new Actor { Name = "Robert Downey Jr.", Biography = "An American actor and producer." },
-new Actor { Name = "Scarlett Johansson", Biography = "An American actress and singer." },
-new Actor { Name = "Tom Hanks", Biography = "An American actor and filmmaker." }
-};
 
-var directors = new[]
-{
-new Director { Name = "Christopher Nolan", Biography = "An English-American filmmaker known for his work on complex narratives." },
-new Director { Name = "Steven Spielberg", Biography = "An American film director, screenwriter, and producer." },
-new Director { Name = "Quentin Tarantino", Biography = "An American filmmaker and screenwriter." },
-new Director { Name = "Martin Scorsese", Biography = "An American film director, producer, screenwriter, and actor." },
-new Director { Name = "James Cameron", Biography = "A Canadian filmmaker and environmentalist." }
-};
 
-var movies = new[]
+                var actors = new[]
+                {
+                    new Actor { Name = "Leonardo DiCaprio", Biography = "An American actor, producer, and environmentalist." },
+                    new Actor { Name = "Matt Damon", Biography = "An American actor, film producer, and screenwriter." },
+                    new Actor { Name = "Robert Downey Jr.", Biography = "An American actor and producer." },
+                    new Actor { Name = "Scarlett Johansson", Biography = "An American actress and singer." },
+                    new Actor { Name = "Tom Hanks", Biography = "An American actor and filmmaker." }
+                };
+
+                var directors = new[]
+                {
+                    new Director { Name = "Christopher Nolan", Biography = "An English-American filmmaker known for his work on complex narratives." },
+                    new Director { Name = "Steven Spielberg", Biography = "An American film director, screenwriter, and producer." },
+                    new Director { Name = "Quentin Tarantino", Biography = "An American filmmaker and screenwriter." },
+                    new Director { Name = "Martin Scorsese", Biography = "An American film director, producer, screenwriter, and actor." },
+                    new Director { Name = "James Cameron", Biography = "A Canadian filmmaker and environmentalist." }
+                };
+
+
+                var movies = new[]
 {
-new Movies
+new Movie
 {
     Title = "Inception",
     Year = 2010,
@@ -50,7 +53,7 @@ new Movies
     DirectorId = 1,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
     Title = "The Dark Knight",
     Year = 2008,
@@ -64,7 +67,7 @@ new Movies
     DirectorId = 1,
     Actors = new List<Actor> { actors[0], actors[2] }
 },
-new Movies
+new Movie
 {
     Title = "Jurassic Park",
     Year = 1993,
@@ -78,7 +81,7 @@ new Movies
     DirectorId = 2,
     Actors = new List<Actor> { actors[3], actors[4] }
 },
-new Movies
+new Movie
 {
     Title = "Pulp Fiction",
     Year = 1994,
@@ -92,7 +95,7 @@ new Movies
     DirectorId = 3,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
     Title = "Titanic",
     Year = 1997,
@@ -106,7 +109,7 @@ new Movies
     DirectorId = 5,
     Actors = new List<Actor> { actors[0], actors[3] }
 },
-new Movies
+new Movie
 {
     Title = "The Matrix",
     Year = 1999,
@@ -120,7 +123,7 @@ new Movies
     DirectorId = 1,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
     Title = "Gladiator",
     Year = 2000,
@@ -134,7 +137,7 @@ new Movies
     DirectorId = 2,
     Actors = new List<Actor> { actors[2], actors[3] }
 },
-new Movies
+new Movie
 {
     Title = "The Lord of the Rings: The Fellowship of the Ring",
     Year = 2001,
@@ -148,7 +151,7 @@ new Movies
     DirectorId = 3,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
     Title = "The Lord of the Rings: The Two Towers",
     Year = 2002,
@@ -162,7 +165,7 @@ new Movies
     DirectorId = 3,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
     Title = "The Lord of the Rings: The Return of the King",
     Year = 2003,
@@ -176,7 +179,7 @@ new Movies
     DirectorId = 3,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
     Title = "The Shawshank Redemption",
     Year = 1994,
@@ -190,7 +193,7 @@ new Movies
     DirectorId = 4,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
     Title = "Forrest Gump",
     Year = 1994,
@@ -204,7 +207,7 @@ new Movies
     DirectorId = 4,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
     Title = "The Godfather",
     Year = 1972,
@@ -218,7 +221,7 @@ new Movies
     DirectorId = 5,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
     Title = "The Godfather: Part II",
     Year = 1974,
@@ -232,7 +235,7 @@ new Movies
     DirectorId = 5,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
     Title = "The Dark Knight Rises",
     Year = 2012,
@@ -246,7 +249,7 @@ new Movies
     DirectorId = 1,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
     Title = "Interstellar",
     Year = 2014,
@@ -260,7 +263,7 @@ new Movies
     DirectorId = 1,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
     Title = "The Lion King",
     Year = 2019,
@@ -274,7 +277,7 @@ new Movies
     DirectorId = 2,
     Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
 Title = "The Avengers",
 Year = 2012,
@@ -288,7 +291,7 @@ Director = directors[0],
 DirectorId = 1,
 Actors = new List<Actor> { actors[0], actors[1] }
 },
-new Movies
+new Movie
 {
 Title = "Avatar",
 Year = 2009,
@@ -304,12 +307,41 @@ Actors = new List<Actor> { actors[0], actors[1] }
 },
 
 };
+                var customers = new[]
+              {
+                    new Customer { Name = "Customer 1", Email = "customer1@example.com" },
+                    new Customer { Name = "Customer 2", Email = "customer2@example.com" },
+                    new Customer { Name = "Customer 3", Email = "customer3@example.com" },
+                    new Customer { Name = "Customer 4", Email = "customer4@example.com" },
+                    new Customer { Name = "Customer 5", Email = "customer5@example.com" },
+                    new Customer { Name = "Customer 6", Email = "customer6@example.com" },
+                    new Customer { Name = "Customer 7", Email = "customer7@example.com" },
+                    new Customer { Name = "Customer 8", Email = "customer8@example.com" },
+                    new Customer { Name = "Customer 9", Email = "customer9@example.com" },
+                    new Customer { Name = "Customer 10", Email = "customer10@example.com" }
+                };
 
-context.Actors.AddRange(actors);
-context.Directors.AddRange(directors);
-context.Movies.AddRange(movies);
-context.SaveChanges();
-}
+                var sessions = new[]
+                {
+                    new Session { StartTime = DateTime.Now.AddHours(1), Movie = movies[0] },
+                    new Session { StartTime = DateTime.Now.AddHours(2), Movie = movies[1] },
+                    new Session { StartTime = DateTime.Now.AddHours(3), Movie = movies[2] },
+                    new Session { StartTime = DateTime.Now.AddHours(4), Movie = movies[3] },
+                    new Session { StartTime = DateTime.Now.AddHours(5), Movie = movies[4] },
+                    new Session { StartTime = DateTime.Now.AddHours(6), Movie = movies[5] },
+                    new Session { StartTime = DateTime.Now.AddHours(7), Movie = movies[6] },
+                    new Session { StartTime = DateTime.Now.AddHours(8), Movie = movies[7] },
+                    new Session { StartTime = DateTime.Now.AddHours(9), Movie = movies[8] },
+                    new Session { StartTime = DateTime.Now.AddHours(10), Movie = movies[9] }
+                };
+
+                context.Actors.AddRange(actors);
+                context.Directors.AddRange(directors);
+                context.Movies.AddRange(movies);
+                context.Customers.AddRange(customers);
+                context.Sessions.AddRange(sessions);
+                context.SaveChanges();
+            }
 }
 }
 }

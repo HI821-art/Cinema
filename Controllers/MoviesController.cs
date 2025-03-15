@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using CINEMA.Entitties;
 
 namespace Cinema.Controllers
 {
@@ -15,30 +15,16 @@ namespace Cinema.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var movies = await _context.Movies
-                .Include(m => m.Actors)
-                .Include(m => m.Director)
-                .ToListAsync();
-
-            if (movies == null || !movies.Any())
-            {
-                return View(new List<Movies>());
-            }
-
-            return View(movies);
+            return View(await _context.Movies.ToListAsync());
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            var movie = await _context.Movies
-                .Include(m => m.Actors)
-                .Include(m => m.Director)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            if (id == null) return NotFound();
 
-            if (movie == null)
-            {
-                return NotFound();
-            }
+            var movie = await _context.Movies.FindAsync(id);
+
+            if (movie == null) return NotFound();
 
             return View(movie);
         }
@@ -50,25 +36,66 @@ namespace Cinema.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Movies movie)
+        public async Task<IActionResult> Create(Movie movie)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(movie);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+            if (!ModelState.IsValid) return View(movie);
+
+            _context.Add(movie);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie == null) return NotFound();
+
             return View(movie);
         }
-        public ActionResult Delete(int id)
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id,  Movie movie)
         {
-            var player = _context.Movies.Find(id);
-            if (player == null) return NotFound();
+            if (id != movie.Id) return NotFound();
 
-            _context.Movies.Remove(player);
-            _context.SaveChanges();
+            if (!ModelState.IsValid) return View(movie);
 
-            return RedirectToAction("Index");
+            _context.Update(movie);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var movie = await _context.Movies.FindAsync(id);
+
+            if (movie == null) return NotFound();
+
+            return View(movie);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie == null) return NoContent();
+
+            _context.Movies.Remove(movie);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool MovieExists(int id)
+        {
+            return _context.Movies.Any(e => e.Id == id);
         }
     }
 }
