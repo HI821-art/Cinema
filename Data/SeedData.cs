@@ -1,4 +1,4 @@
-﻿using CINEMA.Entitties;
+﻿using Cinema.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -15,8 +15,6 @@ if (context.Movies.Any())
 {
 return;
 }
-
-
 
                 var actors = new[]
                 {
@@ -37,7 +35,7 @@ return;
                 };
 
 
-                var movies = new[]
+                 var movies = new[]
 {
 new Movie
 {
@@ -306,7 +304,291 @@ DirectorId = 5,
 Actors = new List<Actor> { actors[0], actors[1] }
 },
 
+new Movie
+{
+    Title = "Soul",
+    Year = 2020,
+    Description = "A musician who has lost his passion for music is transported out of his body and must find his way back with the help of an infant soul learning about herself.",
+    Genre = "Animation, Adventure, Comedy",
+    Duration = 100,
+    CoverImage = "https://cdn.kinocheck.com/i/p3dmrr9j0z.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=xOsLIiBStEs",
+    Director = directors[0],
+    DirectorId = 1,
+    Actors = new List<Actor> { actors[0], actors[1] }
+},
+new Movie
+{
+    Title = "Luca",
+    Year = 2021,
+    Description = "On the Italian Riviera, an unlikely but strong friendship grows between a human being and a sea monster disguised as a human.",
+    Genre = "Animation, Adventure, Comedy",
+    Duration = 95,
+    CoverImage = "https://th.bing.com/th/id/OIP.Q8GfbEF5ooUkSOeOJMqEIAHaJ4?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=mYfJxlgR2jw",
+    Director = directors[1],
+    DirectorId = 2,
+    Actors = new List<Actor> { actors[2], actors[3] }
+},
+new Movie
+{
+    Title = "Raya and the Last Dragon",
+    Year = 2021,
+    Description = "In a realm known as Kumandra, a re-imagined Earth inhabited by an ancient civilization, a warrior named Raya is determined to find the last dragon.",
+    Genre = "Animation, Action, Adventure",
+    Duration = 107,
+    CoverImage = "https://th.bing.com/th/id/OIP.gxDH-sFrzTtmqnaHoYVGVgHaLH?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=1VIZ89FEjYI",
+    Director = directors[2],
+    DirectorId = 3,
+    Actors = new List<Actor> { actors[4], actors[0] }
+},
+new Movie
+{
+    Title = "Encanto",
+    Year = 2021,
+    Description = "A young Colombian girl has to face the frustration of being the only member of her family without magical powers.",
+    Genre = "Animation, Comedy, Drama",
+    Duration = 102,
+    CoverImage = "https://i0.wp.com/intheplayroom.co.uk/wp-content/uploads/2022/01/Encanto_Doors_1s_Antonio_v3.4_KA_mech3_FS-scaled.jpg?w=1728&ssl=1",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=CaimKeDcudo",
+    Director = directors[3],
+    DirectorId = 4,
+    Actors = new List<Actor> { actors[1], actors[2] }
+},
+new Movie
+{
+    Title = "The Mitchells vs the Machines",
+    Year = 2021,
+    Description = "A quirky, dysfunctional family's road trip is upended when they find themselves in the middle of the robot apocalypse and suddenly become humanity's unlikeliest last hope.",
+    Genre = "Animation, Adventure, Comedy",
+    Duration = 113,
+    CoverImage = "https://th.bing.com/th/id/OIP.3Lv6YQWCCN1Bz5yoikmaogHaKJ?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=_ak5dFt8Ar0",
+    Director = directors[4],
+    DirectorId = 5,
+    Actors = new List<Actor> { actors[3], actors[4] }
+},
+new Movie
+{
+    Title = "Onward",
+    Year = 2020,
+    Description = "Two elven brothers embark on a quest to bring their father back for one day.",
+    Genre = "Animation, Adventure, Comedy",
+    Duration = 102,
+    CoverImage = "https://th.bing.com/th/id/OIP.AWxncTwXXnK0C1EazgtAawHaLH?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=gn5QmllRCn4",
+    Director = directors[0],
+    DirectorId = 1,
+    Actors = new List<Actor> { actors[0], actors[1] }
+},
+new Movie
+{
+    Title = "Frozen II",
+    Year = 2019,
+    Description = "Anna, Elsa, Kristoff, Olaf, and Sven leave Arendelle to travel to an ancient, autumn-bound forest of an enchanted land. They set out to find the origin of Elsa's powers in order to save their kingdom.",
+    Genre = "Animation, Adventure, Comedy",
+    Duration = 103,
+    CoverImage = "https://image.tmdb.org/t/p/original/mINJaa34MtknCYl5AjtNJzWj8cD.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=bwzLiQZDw2I",
+    Director = directors[1],
+    DirectorId = 2,
+    Actors = new List<Actor> { actors[2], actors[3] }
+},
+new Movie
+{
+    Title = "Toy Story 4",
+    Year = 2019,
+    Description = "When a new toy called 'Forky' joins Woody and the gang, a road trip alongside old and new friends reveals how big the world can be for a toy.",
+    Genre = "Animation, Adventure, Comedy",
+    Duration = 100,
+    CoverImage = "https://pics.filmaffinity.com/Toy_Story_4-462756582-large.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=wmiIUN-7qhE",
+    Director = directors[2],
+    DirectorId = 3,
+    Actors = new List<Actor> { actors[4], actors[0] }
+},
+new Movie
+{
+    Title = "Spider-Man: Into the Spider-Verse",
+    Year = 2018,
+    Description = "Teen Miles Morales becomes the Spider-Man of his universe, and must join with five spider-powered individuals from other dimensions to stop a threat for all realities.",
+    Genre = "Animation, Action, Adventure",
+    Duration = 117,
+    CoverImage = "https://th.bing.com/th/id/OIP.Gu-e4t8R9ws6RpxIEDCKdwHaLH?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=g4Hbz2jLxvQ",
+    Director = directors[3],
+    DirectorId = 4,
+    Actors = new List<Actor> { actors[1], actors[2] }
+},
+new Movie
+{
+    Title = "Coco",
+    Year = 2017,
+    Description = "Aspiring musician Miguel, confronted with his family's ancestral ban on music, enters the Land of the Dead to find his great-great-grandfather, a legendary singer.",
+    Genre = "Animation, Adventure, Comedy",
+    Duration = 105,
+    CoverImage = "https://th.bing.com/th/id/R.06a039d56bb9932d0c7e50a52ef69ec7?rik=1O5NFF4UzK7IFA&pid=ImgRaw&r=0",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=Ga6RYejo6Hk",
+    Director = directors[4],
+    DirectorId = 5,
+    Actors = new List<Actor> { actors[3], actors[4] }
+},
+new Movie
+{
+    Title = "Moana",
+    Year = 2016,
+    Description = "In Ancient Polynesia, when a terrible curse incurred by the Demigod Maui reaches Moana's island, she answers the Ocean's call to seek out the Demigod to set things right.",
+    Genre = "Animation, Adventure, Comedy",
+    Duration = 107,
+    CoverImage = "https://th.bing.com/th/id/OIP.W_kbHrDuRIOLNZGFBTe_YgHaLH?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=LKFuXETZUsI",
+    Director = directors[0],
+    DirectorId = 1,
+    Actors = new List<Actor> { actors[0], actors[1] }
+},
+new Movie
+{
+    Title = "Dune: Part Two",
+    Year = 2023,
+    Description = "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
+    Genre = "Action, Adventure, Drama",
+    Duration = 155,
+    CoverImage = "https://th.bing.com/th/id/OIP.zQGa2u3ra7dd_pDfEqDTewHaLH?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=example",
+    Director = directors[0],
+    DirectorId = 1,
+    Actors = new List<Actor> { actors[0], actors[1] }
+},
+new Movie
+{
+    Title = "Avatar 3",
+    Year = 2024,
+    Description = "The third installment of the 'Avatar' franchise.",
+    Genre = "Action, Adventure, Sci-Fi",
+    Duration = 162,
+    CoverImage = "https://cdna.artstation.com/p/assets/images/images/031/645/214/large/shreyas-raut-avatar-2.jpg?1604210989",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=example",
+    Director = directors[4],
+    DirectorId = 5,
+    Actors = new List<Actor> { actors[0], actors[1] }
+},
+new Movie
+{
+    Title = "Guardians of the Galaxy Vol. 3",
+    Year = 2023,
+    Description = "The Guardians of the Galaxy embark on a new adventure.",
+    Genre = "Action, Adventure, Comedy",
+    Duration = 150,
+    CoverImage = "https://th.bing.com/th/id/OIP.4E32Anj4RLBR4T3KZGh9cgHaLH?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=example",
+    Director = directors[1],
+    DirectorId = 2,
+    Actors = new List<Actor> { actors[2], actors[3] }
+},
+new Movie
+{
+    Title = "The Flash",
+    Year = 2023,
+    Description = "Barry Allen uses his super speed to change the past, but his attempt to save his family creates a world without superheroes, forcing him to race for his life to save the future.",
+    Genre = "Action, Adventure, Fantasy",
+    Duration = 144,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BOGZjMjhhMDMtZjM5Ny00NGUyLThjNGYtNjJhZGJmMzMxYjllXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=example",
+    Director = directors[2],
+    DirectorId = 3,
+    Actors = new List<Actor> { actors[4], actors[0] }
+},
+new Movie
+{
+    Title = "Indiana Jones 5",
+    Year = 2023,
+    Description = "The fifth installment of the 'Indiana Jones' franchise.",
+    Genre = "Action, Adventure",
+    Duration = 142,
+    CoverImage = "https://th.bing.com/th/id/OIP.AyUdyPI6j_av_XpAjNtgYwHaJ4?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=example",
+    Director = directors[3],
+    DirectorId = 4,
+    Actors = new List<Actor> { actors[1], actors[2] }
+},
+new Movie
+{
+    Title = "Mission: Impossible 8",
+    Year = 2024,
+    Description = "Ethan Hunt and his IMF team must track down a dangerous new weapon before it falls into the wrong hands.",
+    Genre = "Action, Adventure, Thriller",
+    Duration = 147,
+    CoverImage = "https://th.bing.com/th/id/OIP.If52aHwONQaJ3zTWmOygVgHaK-?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=example",
+    Director = directors[4],
+    DirectorId = 5,
+    Actors = new List<Actor> { actors[3], actors[4] }
+},
+
+new Movie
+{
+    Title = "Star Wars: Rogue Squadron",
+    Year = 2023,
+    Description = "The story will introduce a new generation of starfighter pilots as they earn their wings and risk their lives in a boundary-pushing, high-speed thrill ride.",
+    Genre = "Action, Adventure, Sci-Fi",
+    Duration = 140,
+    CoverImage = "https://th.bing.com/th/id/OIP.iWOAnL6TDCPQUHk2rqmsagHaLH?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=example",
+    Director = directors[1],
+    DirectorId = 2,
+    Actors = new List<Actor> { actors[2], actors[3] }
+},
+new Movie
+{
+    Title = "Black Panther: Wakanda Forever",
+    Year = 2023,
+    Description = "The people of Wakanda fight to protect their home from intervening world powers as they mourn the death of King T'Challa.",
+    Genre = "Action, Adventure, Drama",
+    Duration = 161,
+    CoverImage = "https://th.bing.com/th/id/OIP.udstHPF8mPl8hm3gOsKkwQHaLQ?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=example",
+    Director = directors[2],
+    DirectorId = 3,
+    Actors = new List<Actor> { actors[4], actors[0] }
+},
+new Movie
+{
+    Title = "The Batman 2",
+    Year = 2025,
+    Description = "The second installment of the new 'Batman' series.",
+    Genre = "Action, Crime, Drama",
+    Duration = 175,
+    CoverImage = "https://th.bing.com/th/id/OIP.btQ1b0ZPeJVU1XQTqXxGvQHaJS?rs=1&pid=ImgDetMain",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=example",
+    Director = directors[3],
+    DirectorId = 4,
+    Actors = new List<Actor> { actors[1], actors[2] }
+}
+
+
 };
+  
                 var customers = new[]
               {
                     new Customer { Name = "Customer 1", Email = "customer1@example.com" },

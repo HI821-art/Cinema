@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CINEMA.Entitties;
+using Cinema.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cinema.Controllers

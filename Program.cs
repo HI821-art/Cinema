@@ -1,59 +1,66 @@
-using Cinema.Data;
 using Microsoft.EntityFrameworkCore;
+using Cinema.Data;
+using Cinema.Services;
+using Cinema;
 
-namespace CINEMA
+var builder = WebApplication.CreateBuilder(args);
+string connStr = builder.Configuration.GetConnectionString("SomeeDb");
+
+if (string.IsNullOrEmpty(connStr))
 {
-    public class Program
+    throw new InvalidOperationException("The connection string 'SomeeDb' is not defined.");
+}
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<MovieDbContext>(opts =>
+    opts.UseSqlServer(connStr));
+
+builder.Services.AddScoped<FavoritesService>();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromDays(7);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
     {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.AddControllersWithViews();
-
-            builder.Services.AddDbContext<MovieDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-                    sqlOptions => sqlOptions.EnableRetryOnFailure()));
-
-            var app = builder.Build();
-
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
-            app.MapControllerRoute(
-                name: "movies",
-                pattern: "Movies/{action=Index}/{id?}",
-                defaults: new { controller = "Movies", action = "Index" });
-
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                try
-                {
-                    var context = services.GetRequiredService<MovieDbContext>();
-                    SeedData.Initialize(services);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error seeding the database: {ex.Message}");
-                }
-            }
-
-            app.Run();
-        }
+        SeedData.Initialize(services);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred seeding the database.");
     }
 }
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthorization();
+app.UseSession();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();

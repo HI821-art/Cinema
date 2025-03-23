@@ -1,4 +1,4 @@
-﻿using CINEMA.Entitties;
+﻿using Cinema.Entities;
 using Microsoft.EntityFrameworkCore;
 
 public class MovieDbContext : DbContext

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CINEMA.Entitties;
+using Cinema.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cinema.Controllers
@@ -19,7 +19,7 @@ namespace Cinema.Controllers
             return View(await _context.Movies.ToListAsync());
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string? returnUrl = null)
         {
             if (id == null) return NotFound();
 
@@ -27,6 +27,7 @@ namespace Cinema.Controllers
 
             if (movie == null) return NotFound();
 
+            ViewBag.ReturnUrl = returnUrl;
             return View(movie);
         }
 

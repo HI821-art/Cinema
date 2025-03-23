@@ -1,23 +1,39 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CINEMA.Entitties
+namespace Cinema.Entities
 {
     public class Movie
     {
         public int Id { get; set; }
+
         [Required]
         public string Title { get; set; }
-        [Required]
+
+        [Range(1888, int.MaxValue, ErrorMessage = "Year cannot be negative or less than 1888")]
         public int Year { get; set; }
-        [Range(0, int.MaxValue, ErrorMessage = "Year cenn not be negative")]
+
+        [Required]
         public string Description { get; set; }
+
+        [Required]
         public string Genre { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Duration must be greater than 0")]
         public int Duration { get; set; }
+
+        [Required]
         public string CoverImage { get; set; }
+
+        [Required]
         public string Country { get; set; }
+
+        [Url(ErrorMessage = "Invalid URL format")]
         public string TrailerUrl { get; set; }
+
         public ICollection<Actor>? Actors { get; set; } = new List<Actor>();
-        public Director? Director { get; set; }
+
+        [Required]
         public int DirectorId { get; set; }
+        public Director? Director { get; set; }
     }
 }
