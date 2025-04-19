@@ -1,31 +1,68 @@
 ﻿@model Cinema.Entities.Session
+@inject UserManager<User> UserManager
+@using Microsoft.AspNetCore.Identity
 
 @{
     ViewData["Title"] = "Session Details";
+    var currentCustomerId = ViewBag.CurrentCustomerId as string;
+    var isUserSignedIn = User?.Identity?.IsAuthenticated ?? false;
 }
 
-<h1>Session Details</h1>
+<h2>@Model.Movie?.Title (@Model.StartTime.ToShortDateString() @Model.StartTime.ToShortTimeString())</h2>
 
-<div>
-    <h4>Session</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.StartTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.StartTime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Movie.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Movie.Title)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index" class="btn btn-dark">Back to List</a>
-</div>
+<h4>Available Seats: @(Model.Seats.Count(s => !s.IsBooked)) / @Model.Seats.Count()</h4>
 
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Seat Number</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var seat in Model.Seats.OrderBy(s => s.SeatNumber))
+        {
+            <tr>
+                <td>@seat.SeatNumber</td>
+                <td>
+                    @if (seat.IsBooked)
+                    {
+                        <span class="text-danger">Reserved</span>
+                    }
+                    else
+                    {
+                        <span class="text-success">Available</span>
+                    }
+                </td>
+                <td>
+                    @if (isUserSignedIn)
+                    {
+                        @if (!seat.IsBooked)
+                        {
+                            <form asp-action="Reserve" method="post" class="d-inline">
+                                <input type="hidden" name="sessionId" value="@Model.Id" />
+                                <input type="hidden" name="seatNumber" value="@seat.SeatNumber" />
+                                <button type="submit" class="btn btn-sm btn-primary">Reserve</button>
+                            </form>
+                        }
+                        else if (seat.UserId == currentCustomerId)
+                        {
+                            <span class="text-info">Your seat</span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="text-warning">Log in to reserve</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (isUserSignedIn)
+{
+    <a asp-action="ReservedSeats" class="btn btn-primary">View Your Reserved Seats</a>
+}
+
+<a asp-action="Index" class="btn btn-secondary">Back to Sessions</a>

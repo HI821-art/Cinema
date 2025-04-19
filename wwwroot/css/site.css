@@ -74,28 +74,29 @@ body {
 .shadow-lg {
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
 }
-.movie-card {
-    width: 18rem;
-    height: 24rem;
-}
 
-.movie-card .card-img {
-        height: 12rem;
-        object-fit: cover;
-    }
 .movie-card {
     width: 18rem;
     height: 24rem;
     margin-bottom: 1.5rem;
 }
 
- .movie-card .card-img {
+    .movie-card .card-img {
         height: 14rem;
         object-fit: cover;
     }
 
-.movie-card .card-body {
+    .movie-card .card-body {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+    }
+
+.table {
+    margin-top: 20px;
+}
+
+    .table img {
+        display: block;
+        margin: 0 auto;
     }

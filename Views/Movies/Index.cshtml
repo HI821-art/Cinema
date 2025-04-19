@@ -13,7 +13,7 @@
 <div class="row">
     @foreach (var movie in Model)
     {
-        <div class="col-md-4 mb-4">
+        <div class="col-md-3 d-flex justify-content-center">
             @await Html.PartialAsync("_MovieCard", movie)
         </div>
     }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Cinema.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cinema.Entities
 {
@@ -16,6 +17,9 @@ namespace Cinema.Entities
 
         [Required]
         public DateTime PurchaseTime { get; set; }
+
+        public string UserId { get; set; } 
+        public bool IsReserved => !string.IsNullOrEmpty(UserId);
     }
 }
 

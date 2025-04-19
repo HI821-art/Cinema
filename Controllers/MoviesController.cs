@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Cinema.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -8,10 +9,12 @@ namespace Cinema.Controllers
     public class MoviesController : Controller
     {
         private readonly MovieDbContext _context;
+        private readonly IEmailSender _emailSender;
 
-        public MoviesController(MovieDbContext context)
+        public MoviesController(MovieDbContext context, IEmailSender emailSender)
         {
             _context = context;
+            _emailSender = emailSender;
         }
 
         public async Task<IActionResult> Index()
@@ -138,6 +141,10 @@ namespace Cinema.Controllers
             var movie = await _context.Movies.FindAsync(id);
 
             if (movie == null) return NotFound();
+
+            await _emailSender.SendEmailAsync("tymo.dimav@gmail.com", "Deleting team",
+     $"<h1>Team on deleting...</h1><p>{movie.Title}</p>");
+
 
             return View(movie);
         }

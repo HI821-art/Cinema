@@ -1,20 +1,20 @@
 ﻿using Cinema.Entities;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Cinema.Data
 {
-public static class SeedData
-{
-public static void Initialize(IServiceProvider serviceProvider)
-{
-using (var context = new MovieDbContext(
-serviceProvider.GetRequiredService<DbContextOptions<MovieDbContext>>()))
-{
-if (context.Movies.Any())
-{
-return;
-}
+    public static class SeedData
+    {
+        public static void Initialize(IServiceProvider serviceProvider)
+        {
+            using (var context = new MovieDbContext(
+                serviceProvider.GetRequiredService<DbContextOptions<MovieDbContext>>()))
+            {
+                if (context.Movies.Any())
+                {
+                   
+                }
+
 
                 var actors = new[]
                 {
@@ -404,20 +404,6 @@ new Movie
 },
 new Movie
 {
-    Title = "Toy Story 4",
-    Year = 2019,
-    Description = "When a new toy called 'Forky' joins Woody and the gang, a road trip alongside old and new friends reveals how big the world can be for a toy.",
-    Genre = "Animation, Adventure, Comedy",
-    Duration = 100,
-    CoverImage = "https://pics.filmaffinity.com/Toy_Story_4-462756582-large.jpg",
-    Country = "USA",
-    TrailerUrl = "https://www.youtube.com/watch?v=wmiIUN-7qhE",
-    Director = directors[2],
-    DirectorId = 3,
-    Actors = new List<Actor> { actors[4], actors[0] }
-},
-new Movie
-{
     Title = "Spider-Man: Into the Spider-Verse",
     Year = 2018,
     Description = "Teen Miles Morales becomes the Spider-Man of his universe, and must join with five spider-powered individuals from other dimensions to stop a threat for all realities.",
@@ -604,18 +590,108 @@ new Movie
                 };
 
                 var sessions = new[]
-                {
-                    new Session { StartTime = DateTime.Now.AddHours(1), Movie = movies[0] },
-                    new Session { StartTime = DateTime.Now.AddHours(2), Movie = movies[1] },
-                    new Session { StartTime = DateTime.Now.AddHours(3), Movie = movies[2] },
-                    new Session { StartTime = DateTime.Now.AddHours(4), Movie = movies[3] },
-                    new Session { StartTime = DateTime.Now.AddHours(5), Movie = movies[4] },
-                    new Session { StartTime = DateTime.Now.AddHours(6), Movie = movies[5] },
-                    new Session { StartTime = DateTime.Now.AddHours(7), Movie = movies[6] },
-                    new Session { StartTime = DateTime.Now.AddHours(8), Movie = movies[7] },
-                    new Session { StartTime = DateTime.Now.AddHours(9), Movie = movies[8] },
-                    new Session { StartTime = DateTime.Now.AddHours(10), Movie = movies[9] }
-                };
+ {
+    new Session
+    {
+        StartTime = DateTime.Now.AddHours(1),
+        Movie = movies[0],
+        Seats = Enumerable.Range(1, 50).Select(i => new Seat
+        {
+            SeatNumber = i.ToString(),
+            IsBooked = false
+        }).ToList()
+    },
+    new Session
+    {
+        StartTime = DateTime.Now.AddHours(2),
+        Movie = movies[1],
+        Seats = Enumerable.Range(1, 50).Select(i => new Seat
+        {
+            SeatNumber = i.ToString(),
+            IsBooked = false
+        }).ToList()
+    },
+    new Session
+    {
+        StartTime = DateTime.Now.AddHours(3),
+        Movie = movies[2],
+        Seats = Enumerable.Range(1, 50).Select(i => new Seat
+        {
+            SeatNumber = i.ToString(),
+            IsBooked = false
+        }).ToList()
+    },
+    new Session
+    {
+        StartTime = DateTime.Now.AddHours(4),
+        Movie = movies[3],
+        Seats = Enumerable.Range(1, 50).Select(i => new Seat
+        {
+            SeatNumber = i.ToString(),
+            IsBooked = false
+        }).ToList()
+    },
+    new Session
+    {
+        StartTime = DateTime.Now.AddHours(5),
+        Movie = movies[4],
+        Seats = Enumerable.Range(1, 50).Select(i => new Seat
+        {
+            SeatNumber = i.ToString(),
+            IsBooked = false
+        }).ToList()
+    },
+    new Session
+    {
+        StartTime = DateTime.Now.AddHours(6),
+        Movie = movies[5],
+        Seats = Enumerable.Range(1, 50).Select(i => new Seat
+        {
+            SeatNumber = i.ToString(),
+            IsBooked = false
+        }).ToList()
+    },
+    new Session
+    {
+        StartTime = DateTime.Now.AddHours(7),
+        Movie = movies[6],
+        Seats = Enumerable.Range(1, 50).Select(i => new Seat
+        {
+            SeatNumber = i.ToString(),
+            IsBooked = false
+        }).ToList()
+    },
+    new Session
+    {
+        StartTime = DateTime.Now.AddHours(8),
+        Movie = movies[7],
+        Seats = Enumerable.Range(1, 50).Select(i => new Seat
+        {
+            SeatNumber = i.ToString(),
+            IsBooked = false
+        }).ToList()
+    },
+    new Session
+    {
+        StartTime = DateTime.Now.AddHours(9),
+        Movie = movies[8],
+        Seats = Enumerable.Range(1, 50).Select(i => new Seat
+        {
+            SeatNumber = i.ToString(),
+            IsBooked = false
+        }).ToList()
+    },
+    new Session
+    {
+        StartTime = DateTime.Now.AddHours(10),
+        Movie = movies[9],
+        Seats = Enumerable.Range(1, 50).Select(i => new Seat
+        {
+            SeatNumber = i.ToString(),
+            IsBooked = false
+        }).ToList()
+    }
+};
 
                 context.Actors.AddRange(actors);
                 context.Directors.AddRange(directors);
