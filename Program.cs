@@ -6,6 +6,8 @@ using Cinema.Services;
 using Cinema.Extensions;
 using Cinema.Interfaces;
 using Cinema.Helpers;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,11 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddDefaultTokenProviders()
     .AddDefaultUI()
     .AddEntityFrameworkStores<MovieDbContext>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<MovieCreateDtoValidator>();
+
 
 builder.Services.AddScoped<FavoritesServiceOptimized>();
 builder.Services.AddScoped<FavoritesServiceDb>();

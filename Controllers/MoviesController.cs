@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using AutoMapper;
 using Cinema.Entities;
+using Cinema.DTOs;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cinema.Controllers
@@ -10,27 +12,32 @@ namespace Cinema.Controllers
     {
         private readonly MovieDbContext _context;
         private readonly IEmailSender _emailSender;
+        private readonly IMapper _mapper;
 
-        public MoviesController(MovieDbContext context, IEmailSender emailSender)
+        public MoviesController(MovieDbContext context, IEmailSender emailSender, IMapper mapper)
         {
             _context = context;
             _emailSender = emailSender;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Movies.ToListAsync());
+            var movies = await _context.Movies.Include(m => m.Director).ToListAsync();
+            return View(movies);
         }
 
-        public async Task<IActionResult> Details(int? id, string? returnUrl = null)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
 
-            var movie = await _context.Movies.FindAsync(id);
+            var movie = await _context.Movies
+                .Include(m => m.Director)
+                .Include(m => m.Actors)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (movie == null) return NotFound();
 
-            ViewBag.ReturnUrl = returnUrl;
             return View(movie);
         }
 
@@ -45,18 +52,20 @@ namespace Cinema.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Movie movie, int[] selectedActors)
+        public async Task<IActionResult> Create(MovieCreateDto movieDto, int[] selectedActors)
         {
             if (!ModelState.IsValid)
             {
                 ViewBag.Genres = new SelectList(new[] { "Action", "Drama", "Comedy", "Horror", "Sci-Fi" });
                 ViewBag.Countries = new SelectList(new[] { "USA", "UK", "Canada", "Australia", "India" });
-                ViewBag.Directors = new SelectList(_context.Directors, "Id", "Name", movie.DirectorId);
+                ViewBag.Directors = new SelectList(_context.Directors, "Id", "Name", movieDto.DirectorId);
                 ViewBag.Actors = new MultiSelectList(_context.Actors, "Id", "Name", selectedActors);
-                return View(movie);
+                return View(movieDto);
             }
 
+            var movie = _mapper.Map<Movie>(movieDto);
             movie.Actors = new List<Actor>();
+
             foreach (var actorId in selectedActors)
             {
                 var actor = await _context.Actors.FindAsync(actorId);
@@ -80,26 +89,28 @@ namespace Cinema.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null) return NotFound();
 
+            var movieDto = _mapper.Map<MovieEditDto>(movie);
+
             ViewBag.Genres = new SelectList(new[] { "Action", "Drama", "Comedy", "Horror", "Sci-Fi" }, movie.Genre);
             ViewBag.Countries = new SelectList(new[] { "USA", "UK", "Canada", "Australia", "India" }, movie.Country);
             ViewBag.Directors = new SelectList(_context.Directors, "Id", "Name", movie.DirectorId);
             ViewBag.Actors = new MultiSelectList(_context.Actors, "Id", "Name", movie.Actors.Select(a => a.Id));
-            return View(movie);
+            return View(movieDto);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Movie movie, int[] selectedActors)
+        public async Task<IActionResult> Edit(int id, MovieEditDto movieDto, int[] selectedActors)
         {
-            if (id != movie.Id) return NotFound();
+            if (id != movieDto.Id) return NotFound();
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Genres = new SelectList(new[] { "Action", "Drama", "Comedy", "Horror", "Sci-Fi" }, movie.Genre);
-                ViewBag.Countries = new SelectList(new[] { "USA", "UK", "Canada", "Australia", "India" }, movie.Country);
-                ViewBag.Directors = new SelectList(_context.Directors, "Id", "Name", movie.DirectorId);
+                ViewBag.Genres = new SelectList(new[] { "Action", "Drama", "Comedy", "Horror", "Sci-Fi" }, movieDto.Genre);
+                ViewBag.Countries = new SelectList(new[] { "USA", "UK", "Canada", "Australia", "India" }, movieDto.Country);
+                ViewBag.Directors = new SelectList(_context.Directors, "Id", "Name", movieDto.DirectorId);
                 ViewBag.Actors = new MultiSelectList(_context.Actors, "Id", "Name", selectedActors);
-                return View(movie);
+                return View(movieDto);
             }
 
             var movieToUpdate = await _context.Movies
@@ -108,15 +119,7 @@ namespace Cinema.Controllers
 
             if (movieToUpdate == null) return NotFound();
 
-            movieToUpdate.Title = movie.Title;
-            movieToUpdate.Year = movie.Year;
-            movieToUpdate.Description = movie.Description;
-            movieToUpdate.Genre = movie.Genre;
-            movieToUpdate.Duration = movie.Duration;
-            movieToUpdate.CoverImage = movie.CoverImage;
-            movieToUpdate.Country = movie.Country;
-            movieToUpdate.TrailerUrl = movie.TrailerUrl;
-            movieToUpdate.DirectorId = movie.DirectorId;
+            _mapper.Map(movieDto, movieToUpdate);
 
             movieToUpdate.Actors.Clear();
             foreach (var actorId in selectedActors)
@@ -142,10 +145,6 @@ namespace Cinema.Controllers
 
             if (movie == null) return NotFound();
 
-            await _emailSender.SendEmailAsync("tymo.dimav@gmail.com", "Deleting team",
-     $"<h1>Team on deleting...</h1><p>{movie.Title}</p>");
-
-
             return View(movie);
         }
 
@@ -168,3 +167,4 @@ namespace Cinema.Controllers
         }
     }
 }
+
