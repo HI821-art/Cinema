@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20250502132914_Initial")]
-    partial class Initial
+    [Migration("20250502150546_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

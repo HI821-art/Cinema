@@ -65,7 +65,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Favorites" asp-action="Index">
-                                Favorites (<span id="favoriteCount">0</span>)
+                                Favorites (<span id="favoriteCount">@_favService.GetCount()</span>)
                             </a>
                         </li>
                     </ul>
@@ -112,6 +112,6 @@
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

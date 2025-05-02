@@ -12,7 +12,7 @@ namespace Cinema.Data
             {
                 if (context.Movies.Any())
                 {
-                   
+                    return; 
                 }
 
 
@@ -22,8 +22,24 @@ namespace Cinema.Data
                     new Actor { Name = "Matt Damon", Biography = "An American actor, film producer, and screenwriter." },
                     new Actor { Name = "Robert Downey Jr.", Biography = "An American actor and producer." },
                     new Actor { Name = "Scarlett Johansson", Biography = "An American actress and singer." },
-                    new Actor { Name = "Tom Hanks", Biography = "An American actor and filmmaker." }
-                };
+                    new Actor { Name = "Tom Hanks", Biography = "An American actor and filmmaker." },
+                    new Actor { Name = "Meryl Streep", Biography = "An American actress often described as the 'best actress of her generation'." },
+                    new Actor { Name = "Denzel Washington", Biography = "An American actor, director, and producer." },
+                    new Actor { Name = "Natalie Portman", Biography = "An Israeli-American actress known for her versatility." },
+                    new Actor { Name = "Christian Bale", Biography = "A British actor known for his intense method acting." },
+                    new Actor { Name = "Emma Stone", Biography = "An American actress known for her roles in comedies and dramas." },
+                    new Actor { Name = "Brad Pitt", Biography = "An American actor and film producer." },
+                    new Actor { Name = "Angelina Jolie", Biography = "An American actress, filmmaker, and humanitarian." },
+                    new Actor { Name = "Morgan Freeman", Biography = "An American actor, director, and narrator." },
+                    new Actor { Name = "Anne Hathaway", Biography = "An American actress known for her roles in romantic comedies and dramas." },
+                    new Actor { Name = "Hugh Jackman", Biography = "An Australian actor, singer, and producer." },
+                    new Actor { Name = "Jennifer Lawrence", Biography = "An American actress known for her roles in action and drama films." },
+                    new Actor { Name = "Chris Hemsworth", Biography = "An Australian actor known for his role as Thor in the Marvel Cinematic Universe." },
+                    new Actor { Name = "Gal Gadot", Biography = "An Israeli actress and model known for her role as Wonder Woman." },
+                    new Actor { Name = "Ryan Reynolds", Biography = "A Canadian actor known for his comedic and action roles." },
+                    new Actor { Name = "Viola Davis", Biography = "An American actress and producer known for her powerful performances." }
+};
+              
 
                 var directors = new[]
                 {
@@ -31,8 +47,19 @@ namespace Cinema.Data
                     new Director { Name = "Steven Spielberg", Biography = "An American film director, screenwriter, and producer." },
                     new Director { Name = "Quentin Tarantino", Biography = "An American filmmaker and screenwriter." },
                     new Director { Name = "Martin Scorsese", Biography = "An American film director, producer, screenwriter, and actor." },
-                    new Director { Name = "James Cameron", Biography = "A Canadian filmmaker and environmentalist." }
+                    new Director { Name = "James Cameron", Biography = "A Canadian filmmaker and environmentalist." },
+                    new Director { Name = "Ridley Scott", Biography = "An English film director and producer known for his work on science fiction and historical epics." },
+                    new Director { Name = "Peter Jackson", Biography = "A New Zealand filmmaker known for directing 'The Lord of the Rings' trilogy." },
+                    new Director { Name = "Alfred Hitchcock", Biography = "An English filmmaker widely regarded as one of the most influential figures in the history of cinema." },
+                    new Director { Name = "Francis Ford Coppola", Biography = "An American film director, producer, and screenwriter known for 'The Godfather' trilogy." },
+                    new Director { Name = "Guillermo del Toro", Biography = "A Mexican filmmaker known for his work on fantasy and horror films." },
+                    new Director { Name = "Greta Gerwig", Biography = "An American actress and filmmaker known for her work on 'Lady Bird' and 'Barbie'." },
+                    new Director { Name = "Denis Villeneuve", Biography = "A Canadian filmmaker known for 'Arrival', 'Blade Runner 2049', and 'Dune'." },
+                    new Director { Name = "Wes Anderson", Biography = "An American filmmaker known for his distinctive visual and narrative style." },
+                    new Director { Name = "Sofia Coppola", Biography = "An American filmmaker and actress known for 'Lost in Translation'." },
+                    new Director { Name = "Patty Jenkins", Biography = "An American filmmaker known for directing 'Wonder Woman'." }
                 };
+            
 
 
                  var movies = new[]
@@ -570,7 +597,289 @@ new Movie
     Director = directors[3],
     DirectorId = 4,
     Actors = new List<Actor> { actors[1], actors[2] }
+},
+new Movie
+{
+    Title = "The Social Network",
+    Year = 2010,
+    Description = "The story of the founding of Facebook and the legal battles that followed.",
+    Genre = "Biography, Drama",
+    Duration = 120,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BMjlkNTE5ZTUtNGEwNy00MGVhLThmZjMtZjU1NDE5Zjk1NDZkXkEyXkFqcGc@._V1_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=lB95KLmpLR4",
+    Director = directors[3], // David Fincher (add if missing)
+    DirectorId = 4,
+    Actors = new List<Actor> { actors[0], actors[1] }
+},
+new Movie
+{
+    Title = "Parasite",
+    Year = 2019,
+    Description = "A poor family schemes to become employed by a wealthy family by infiltrating their household.",
+    Genre = "Comedy, Drama, Thriller",
+    Duration = 132,
+    CoverImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcyJYd_sWzQdj87gwIiDRpi6JtzfY6-XLG-w&s",
+    Country = "South Korea",
+    TrailerUrl = "https://www.youtube.com/watch?v=5xH0HfJHsaY",
+    Director = directors[5], // Bong Joon-ho (add if missing)
+    DirectorId = 6,
+    Actors = new List<Actor> { actors[2], actors[3] }
+},
+new Movie
+{
+    Title = "Whiplash",
+    Year = 2014,
+    Description = "A promising young drummer enrolls at a cutthroat music conservatory.",
+    Genre = "Drama, Music",
+    Duration = 107,
+    CoverImage = "https://miro.medium.com/v2/resize:fit:1200/1*HygtAUSg3MqQjimu0MQy3Q.jpeg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=7d_jQycdQGo",
+    Director = directors[6], // Damien Chazelle (add if missing)
+    DirectorId = 7,
+    Actors = new List<Actor> { actors[4], actors[5] }
+},
+new Movie
+{
+    Title = "Mad Max: Fury Road",
+    Year = 2015,
+    Description = "In a post-apocalyptic wasteland, Max teams up with Furiosa to escape a tyrannical warlord.",
+    Genre = "Action, Adventure, Sci-Fi",
+    Duration = 120,
+    CoverImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMyIGN_1iegG9ECuta5TfEMsJ9aToEoaVKxQ&s",
+    Country = "Australia",
+    TrailerUrl = "https://www.youtube.com/watch?v=hEJnMQG9ev8",
+    Director = directors[7], // George Miller (add if missing)
+    DirectorId = 8,
+    Actors = new List<Actor> { actors[6], actors[7] }
+},
+new Movie
+{
+    Title = "The Grand Budapest Hotel",
+    Year = 2014,
+    Description = "A concierge at a famous European hotel becomes embroiled in a murder mystery.",
+    Genre = "Adventure, Comedy, Crime",
+    Duration = 99,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BMzM5NjUxOTEyMl5BMl5BanBnXkFtZTgwNjEyMDM0MDE@._V1_FMjpg_UX1000_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=1Fg5iWmQjwk",
+    Director = directors[8], // Wes Anderson
+    DirectorId = 9,
+    Actors = new List<Actor> { actors[8], actors[9] }
+},
+new Movie
+{
+    Title = "La La Land",
+    Year = 2016,
+    Description = "A jazz musician and an aspiring actress fall in love while pursuing their dreams in Los Angeles.",
+    Genre = "Comedy, Drama, Music",
+    Duration = 128,
+    CoverImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHiNyIgZi__GIQH3571XA86KcN6MEdXLgjtg&s",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=0pdqf4P9MB8",
+    Director = directors[6], // Damien Chazelle
+    DirectorId = 7,
+    Actors = new List<Actor> { actors[10], actors[11] }
+},
+new Movie
+{
+    Title = "The Irishman",
+    Year = 2019,
+    Description = "A mob hitman recalls his possible involvement with the slaying of Jimmy Hoffa.",
+    Genre = "Biography, Crime, Drama",
+    Duration = 209,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BMTY2YThkNmQtOWJhYy00ZDc3LWEzOGEtMmQwNzM0YjFmZWIyXkEyXkFqcGc@._V1_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=WHXxVmeGQUc",
+    Director = directors[3], // Martin Scorsese
+    DirectorId = 4,
+    Actors = new List<Actor> { actors[12], actors[13] }
+},
+new Movie
+{
+    Title = "Joker",
+    Year = 2019,
+    Description = "A mentally troubled comedian embarks on a downward spiral that leads to the creation of an iconic villain.",
+    Genre = "Crime, Drama, Thriller",
+    Duration = 122,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BNzY3OWQ5NDktNWQ2OC00ZjdlLThkMmItMDhhNDk3NTFiZGU4XkEyXkFqcGc@._V1_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=zAGVQLHvwOY",
+    Director = directors[9], // Todd Phillips (add if missing)
+    DirectorId = 10,
+    Actors = new List<Actor> { actors[14], actors[15] }
+},
+new Movie
+{
+    Title = "The Wolf of Wall Street",
+    Year = 2013,
+    Description = "Based on the true story of Jordan Belfort, from his rise to a wealthy stockbroker to his fall involving crime and corruption.",
+    Genre = "Biography, Comedy, Crime",
+    Duration = 180,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BMjIxMjgxNTk0MF5BMl5BanBnXkFtZTgwNjIyOTg2MDE@._V1_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=iszwuX1AK6A",
+    Director = directors[3], // Martin Scorsese
+    DirectorId = 4,
+    Actors = new List<Actor> { actors[0], actors[16] }
+},
+new Movie
+{
+    Title = "Django Unchained",
+    Year = 2012,
+    Description = "With the help of a German bounty hunter, a freed slave sets out to rescue his wife from a brutal plantation owner.",
+    Genre = "Drama, Western",
+    Duration = 165,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=eUdM9vrCbow",
+    Director = directors[2], // Quentin Tarantino
+    DirectorId = 3,
+    Actors = new List<Actor> { actors[17], actors[18] }
+},
+new Movie
+{
+    Title = "Shutter Island",
+    Year = 2010,
+    Description = "A U.S. Marshal investigates the disappearance of a murderer who escaped from a hospital for the criminally insane.",
+    Genre = "Mystery, Thriller",
+    Duration = 138,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BN2FjNWExYzEtY2YzOC00YjNlLTllMTQtNmIwM2Q1YzBhOWM1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=5iaYLCiq5RM",
+    Director = directors[3], // Martin Scorsese
+    DirectorId = 4,
+    Actors = new List<Actor> { actors[0], actors[1] }
+},
+new Movie
+{
+    Title = "The Prestige",
+    Year = 2006,
+    Description = "Two stage magicians engage in a battle to create the ultimate illusion while sacrificing everything they have to outwit each other.",
+    Genre = "Drama, Mystery, Sci-Fi",
+    Duration = 130,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BMjA4NDI0MTIxNF5BMl5BanBnXkFtZTYwNTM0MzY2._V1_FMjpg_UX1000_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=o4gHCmTQDVI",
+    Director = directors[0], // Christopher Nolan
+    DirectorId = 1,
+    Actors = new List<Actor> { actors[0], actors[2] }
+},
+new Movie
+{
+    Title = "Fight Club",
+    Year = 1999,
+    Description = "An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.",
+    Genre = "Drama",
+    Duration = 139,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BOTgyOGQ1NDItNGU3Ny00MjU3LTg2YWEtNmEyYjBiMjI1Y2M5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=SUXWAEX2jlg",
+    Director = directors[3], // David Fincher
+    DirectorId = 4,
+    Actors = new List<Actor> { actors[0], actors[3] }
+},
+new Movie
+{
+    Title = "The Silence of the Lambs",
+    Year = 1991,
+    Description = "A young FBI cadet must confide in an incarcerated and manipulative killer to receive his help on catching another serial killer.",
+    Genre = "Crime, Drama, Thriller",
+    Duration = 118,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BNDdhOGJhYzctYzYwZC00YmI2LWI0MjctYjg4ODdlMDExYjBlXkEyXkFqcGc@._V1_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=W6Mm8Sbe__o",
+    Director = directors[10], // Jonathan Demme (add if missing)
+    DirectorId = 11,
+    Actors = new List<Actor> { actors[4], actors[5] }
+},
+new Movie
+{
+    Title = "The Green Mile",
+    Year = 1999,
+    Description = "The lives of guards on Death Row are affected by one of their charges: a black man accused of child murder and rape, yet who has a mysterious gift.",
+    Genre = "Crime, Drama, Fantasy",
+    Duration = 189,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BMTUxMzQyNjA5MF5BMl5BanBnXkFtZTYwOTU2NTY3._V1_FMjpg_UX1000_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=Ki4haFrqSrw",
+    Director = directors[11], // Frank Darabont (add if missing)
+    DirectorId = 12,
+    Actors = new List<Actor> { actors[6], actors[7] }
+},
+new Movie
+{
+    Title = "Saving Private Ryan",
+    Year = 1998,
+    Description = "Following the Normandy Landings, a group of U.S. soldiers go behind enemy lines to retrieve a paratrooper whose brothers have been killed in action.",
+    Genre = "Drama, War",
+    Duration = 169,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BZGZhZGQ1ZWUtZTZjYS00MDJhLWFkYjctN2ZlYjE5NWYwZDM2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=RYID71hYHzg",
+    Director = directors[1], // Steven Spielberg
+    DirectorId = 2,
+    Actors = new List<Actor> { actors[8], actors[9] }
+},
+new Movie
+{
+    Title = "The Departed",
+    Year = 2006,
+    Description = "An undercover cop and a mole in the police attempt to identify each other while infiltrating an Irish gang in South Boston.",
+    Genre = "Crime, Drama, Thriller",
+    Duration = 151,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BMTI1MTY2OTIxNV5BMl5BanBnXkFtZTYwNjQ4NjY3._V1_FMjpg_UX1000_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=iojhqm0JTW4",
+    Director = directors[3], // Martin Scorsese
+    DirectorId = 4,
+    Actors = new List<Actor> { actors[0], actors[10] }
+},
+new Movie
+{
+    Title = "The Truman Show",
+    Year = 1998,
+    Description = "An insurance salesman discovers his whole life is actually a reality TV show.",
+    Genre = "Comedy, Drama",
+    Duration = 103,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BNzA3ZjZlNzYtMTdjMy00NjMzLTk5ZGYtMTkyYzNiOGM1YmM3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=dlnmQbPGuls",
+    Director = directors[12], // Peter Weir (add if missing)
+    DirectorId = 13,
+    Actors = new List<Actor> { actors[11], actors[12] }
+},
+new Movie
+{
+    Title = "The Revenant",
+    Year = 2015,
+    Description = "A frontiersman on a fur trading expedition fights for survival after being mauled by a bear and left for dead by members of his own hunting team.",
+    Genre = "Action, Adventure, Drama",
+    Duration = 156,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BYTgwNmQzZDctMjNmOS00OTExLTkwM2UtNzJmOTJhODFjOTdlXkEyXkFqcGc@._V1_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=LoebZZ8K5N0",
+    Director = directors[13], // Alejandro G. Iñárritu (add if missing)
+    DirectorId = 14,
+    Actors = new List<Actor> { actors[0], actors[13] }
+},
+new Movie
+{
+    Title = "The Hateful Eight",
+    Year = 2015,
+    Description = "In the dead of a Wyoming winter, a bounty hunter and his prisoner find shelter in a cabin currently inhabited by a collection of nefarious characters.",
+    Genre = "Crime, Drama, Mystery",
+    Duration = 168,
+    CoverImage = "https://m.media-amazon.com/images/M/MV5BMjA1MTc1NTg5NV5BMl5BanBnXkFtZTgwOTM2MDEzNzE@._V1_FMjpg_UX1000_.jpg",
+    Country = "USA",
+    TrailerUrl = "https://www.youtube.com/watch?v=6_UI1GzaWv0",
+    Director = directors[2], // Quentin Tarantino
+    DirectorId = 3,
+    Actors = new List<Actor> { actors[14], actors[15] }
 }
+
+
 
 
 };
@@ -586,11 +895,21 @@ new Movie
                     new Customer { Name = "Customer 7", Email = "customer7@example.com" },
                     new Customer { Name = "Customer 8", Email = "customer8@example.com" },
                     new Customer { Name = "Customer 9", Email = "customer9@example.com" },
-                    new Customer { Name = "Customer 10", Email = "customer10@example.com" }
+                    new Customer { Name = "Customer 10", Email = "customer10@example.com" },
+                    new Customer { Name = "Customer 11", Email = "customer11@example.com" },
+                    new Customer { Name = "Customer 12", Email = "customer12@example.com" },
+                    new Customer { Name = "Customer 13", Email = "customer13@example.com" },
+                    new Customer { Name = "Customer 14", Email = "customer14@example.com" },
+                    new Customer { Name = "Customer 15", Email = "customer15@example.com" },
+                    new Customer { Name = "Customer 16", Email = "customer16@example.com" },
+                    new Customer { Name = "Customer 17", Email = "customer17@example.com" },
+                    new Customer { Name = "Customer 18", Email = "customer18@example.com" },
+                    new Customer { Name = "Customer 19", Email = "customer19@example.com" },
+                    new Customer { Name = "Customer 20", Email = "customer20@example.com" }
                 };
 
                 var sessions = new[]
- {
+{
     new Session
     {
         StartTime = DateTime.Now.AddHours(1),
@@ -598,7 +917,7 @@ new Movie
         Seats = Enumerable.Range(1, 50).Select(i => new Seat
         {
             SeatNumber = i.ToString(),
-            IsBooked = false
+            IsBooked = i % 3 == 0 // Every third seat is reserved
         }).ToList()
     },
     new Session
@@ -608,7 +927,7 @@ new Movie
         Seats = Enumerable.Range(1, 50).Select(i => new Seat
         {
             SeatNumber = i.ToString(),
-            IsBooked = false
+            IsBooked = i % 4 == 0 // Every fourth seat is reserved
         }).ToList()
     },
     new Session
@@ -618,7 +937,7 @@ new Movie
         Seats = Enumerable.Range(1, 50).Select(i => new Seat
         {
             SeatNumber = i.ToString(),
-            IsBooked = false
+            IsBooked = false // All seats are available
         }).ToList()
     },
     new Session
@@ -628,7 +947,7 @@ new Movie
         Seats = Enumerable.Range(1, 50).Select(i => new Seat
         {
             SeatNumber = i.ToString(),
-            IsBooked = false
+            IsBooked = i % 2 == 0 // Every second seat is reserved
         }).ToList()
     },
     new Session
@@ -638,9 +957,10 @@ new Movie
         Seats = Enumerable.Range(1, 50).Select(i => new Seat
         {
             SeatNumber = i.ToString(),
-            IsBooked = false
+            IsBooked = i == 1 || i == 50 // Only the first and last seats are reserved
         }).ToList()
     },
+    // Additional sessions
     new Session
     {
         StartTime = DateTime.Now.AddHours(6),
@@ -648,7 +968,7 @@ new Movie
         Seats = Enumerable.Range(1, 50).Select(i => new Seat
         {
             SeatNumber = i.ToString(),
-            IsBooked = false
+            IsBooked = i % 5 == 0 // Every fifth seat is reserved
         }).ToList()
     },
     new Session
@@ -658,7 +978,7 @@ new Movie
         Seats = Enumerable.Range(1, 50).Select(i => new Seat
         {
             SeatNumber = i.ToString(),
-            IsBooked = false
+            IsBooked = false // All seats are available
         }).ToList()
     },
     new Session
@@ -668,7 +988,7 @@ new Movie
         Seats = Enumerable.Range(1, 50).Select(i => new Seat
         {
             SeatNumber = i.ToString(),
-            IsBooked = false
+            IsBooked = i % 6 == 0 // Every sixth seat is reserved
         }).ToList()
     },
     new Session
@@ -678,7 +998,7 @@ new Movie
         Seats = Enumerable.Range(1, 50).Select(i => new Seat
         {
             SeatNumber = i.ToString(),
-            IsBooked = false
+            IsBooked = i % 7 == 0 // Every seventh seat is reserved
         }).ToList()
     },
     new Session
@@ -688,10 +1008,11 @@ new Movie
         Seats = Enumerable.Range(1, 50).Select(i => new Seat
         {
             SeatNumber = i.ToString(),
-            IsBooked = false
+            IsBooked = i % 2 != 0 // Every odd seat is reserved
         }).ToList()
     }
 };
+
 
                 context.Actors.AddRange(actors);
                 context.Directors.AddRange(directors);
