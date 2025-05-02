@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20250419145418_AddSeatsToSessions")]
-    partial class AddSeatsToSessions
+    [Migration("20250502132914_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -23,7 +23,7 @@ namespace Cinema.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var movies = await _context.Movies.Include(m => m.Director).ToListAsync();
+            var movies = await _context.Movies.ToListAsync();
             return View(movies);
         }
 
@@ -43,12 +43,20 @@ namespace Cinema.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Genres = new SelectList(new[] { "Action", "Drama", "Comedy", "Horror", "Sci-Fi" });
-            ViewBag.Countries = new SelectList(new[] { "USA", "UK", "Canada", "Australia", "India" });
-            ViewBag.Directors = new SelectList(_context.Directors, "Id", "Name");
-            ViewBag.Actors = new MultiSelectList(_context.Actors, "Id", "Name");
-            return View();
+            var model = new MovieCreateDto();
+            return View(model);
         }
+
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie == null) return NotFound();
+
+            var model = _mapper.Map<MovieEditDto>(movie);
+            return View(model);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -80,23 +88,8 @@ namespace Cinema.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null) return NotFound();
 
-            var movie = await _context.Movies
-                .Include(m => m.Actors)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (movie == null) return NotFound();
-
-            var movieDto = _mapper.Map<MovieEditDto>(movie);
-
-            ViewBag.Genres = new SelectList(new[] { "Action", "Drama", "Comedy", "Horror", "Sci-Fi" }, movie.Genre);
-            ViewBag.Countries = new SelectList(new[] { "USA", "UK", "Canada", "Australia", "India" }, movie.Country);
-            ViewBag.Directors = new SelectList(_context.Directors, "Id", "Name", movie.DirectorId);
-            ViewBag.Actors = new MultiSelectList(_context.Actors, "Id", "Name", movie.Actors.Select(a => a.Id));
-            return View(movieDto);
-        }
+      
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -165,6 +158,39 @@ namespace Cinema.Controllers
         {
             return _context.Movies.Any(e => e.Id == id);
         }
+        [HttpGet]
+        public async Task<IActionResult> Search(string? title, int? year, string? genre)
+        {
+            var query = _context.Movies.AsQueryable();
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                query = query.Where(m => m.Title.Contains(title));
+            }
+
+            if (year.HasValue)
+            {
+                query = query.Where(m => m.Year == year.Value);
+            }
+
+            if (!string.IsNullOrEmpty(genre))
+            {
+                query = query.Where(m => m.Genre.Contains(genre));
+            }
+
+            
+            var movies = await query.Distinct().ToListAsync();
+            return View("Index", movies);
+        }
+
+
+
+
+
+
+
+
+
     }
 }
 
