@@ -1,13 +1,18 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using Cinema.Data;
-using Cinema.Services;
-using Cinema.Extensions;
-using Cinema.Interfaces;
-using Cinema.Helpers;
-using FluentValidation.AspNetCore;
 using FluentValidation;
+using Core.Services;
+using Core.Extensions;
+using Core.Interfaces;
+using Core.Helpers;
+using Data;
+using Data.Entities;
+using Cinema.Services;
+using Core.Validators;
+using FluentValidation.AspNetCore;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,8 +40,8 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddEntityFrameworkStores<MovieDbContext>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
-builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<MovieCreateDtoValidator>();
+builder.Services.AddFluentValidationClientsideAdapters();
 
 
 builder.Services.AddScoped<FavoritesServiceOptimized>();

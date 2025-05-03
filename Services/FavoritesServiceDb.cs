@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
-using Cinema.Entities;
-using Cinema.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Cinema.Data;
+using Data;
+using Core.Interfaces;
+using Data.Entities;
 
 namespace Cinema.Services
 {

@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Cinema.Data;
-using Cinema.Entities;
-using Cinema.Interfaces;
+using Data;
 using System.Security.Claims;
+using Data.Entities;
 
 namespace Cinema.Controllers
 {

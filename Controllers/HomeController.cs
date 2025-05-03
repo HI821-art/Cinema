@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Cinema.Models;
+using Data;
 
 namespace Cinema.Controllers;
 

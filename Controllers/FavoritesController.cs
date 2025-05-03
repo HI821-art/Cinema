@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Cinema.Services;
-using Cinema.Entities;
-using Cinema.Interfaces;
+using Core.Services;
+using Data.Entities;
+using Core.Interfaces;
 
 namespace Cinema.Controllers
 {

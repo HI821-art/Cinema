@@ -1,8 +1,10 @@
-﻿using Cinema.Entities;
-using Cinema.Interfaces;
+﻿using Data.Entities;
+using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Data;
 
+namespace Cinema.Services;
 public class FavoritesServiceOptimized : IFavoriteService
 {
     private readonly MovieDbContext _context;

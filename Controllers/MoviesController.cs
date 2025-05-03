@@ -2,9 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using AutoMapper;
-using Cinema.Entities;
-using Cinema.DTOs;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Core.DTOs;
+using Data.Entities;
+using Data;
 
 namespace Cinema.Controllers
 {
@@ -87,9 +88,10 @@ namespace Cinema.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+   
 
 
-      
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

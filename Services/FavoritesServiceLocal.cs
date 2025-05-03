@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Cinema.Data;
-using Cinema.Entities;
-using Cinema.Extensions;
-using Cinema.Interfaces;
+using Data;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Core.Extensions;
+using Core.Interfaces;
+using Data.Entities;
 
 namespace Cinema.Services;
 

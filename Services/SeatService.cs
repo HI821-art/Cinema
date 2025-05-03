@@ -1,6 +1,9 @@
-﻿using Cinema.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Data.Entities;
+using Data;
+
+namespace Cinema.Services;
 
 public class SeatService : ISeatService
 {

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Cinema.Entities;
+using Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
