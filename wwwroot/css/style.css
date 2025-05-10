@@ -1,0 +1,251 @@
+:root {
+    --background-color: #121212;
+    --text-color: #E0E0E0;
+    --nav-bg: #19395df2;
+    --nav-text: #ecf0f1;
+    --nav-hover: #95a5a6;
+    --table-bg: #1e1e1e;
+    --table-header-bg: #34495e;
+    --table-header-text: #ecf0f1;
+    --table-row-odd: #23272b;
+    --table-row-even: #2a2f33;
+    --table-row-hover: #3b4b59;
+    
+    
+    --button-highlight: #F4C542;
+    --button-hover: #E76F51;
+
+    --primary-color: #121212;
+    --secondary-color: #C2383B;
+    --accent-color: #95a5a6;
+}
+
+/* Загальні стилі сторінки */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: "Poppins", sans-serif;
+}
+
+/* Стилі навігації */
+.navbar {
+    background-color: var(--nav-bg);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link.btn-login,
+.nav-link.btn-register {
+    background-color: var(--button-highlight);
+    color: #000; /* Чорний текст для контрасту */
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: all 0.3s ease-in-out;
+}
+
+
+    .nav-link:hover {
+        color: var(--nav-hover);
+        transform: scale(1.05);
+    }
+
+/* Кнопки */
+.btn {
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border-radius: 30px;
+    padding: 0.5rem 1.25rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: #fff;
+}
+
+.btn-accent {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Карточки */
+.card {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: scale(1.03);
+        box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+    }
+
+/* Стилі таблиці */
+.table-custom {
+    background-color: var(--table-bg);
+    color: var(--text-color);
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+    .table-custom tbody tr.table-available {
+        background-color: #19395df2;
+        color: #000;
+    }
+
+    .table-custom tbody tr.table-reserved {
+        background-color: #121212; /* Червоний */
+        color: #fff;
+    }
+
+    .table-custom tbody tr.table-user-seat {
+        background-color: #3B82F6; /* Синій */
+        color: #fff;
+    }
+
+    .table-custom tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transition: background-color 0.3s ease;
+    }
+
+/* Бейджі для статусу місць */
+.badge-available {
+    background-color: #F4C542 !important; /* Жовтий */
+    color: #000 !important; /* Чорний текст */
+}
+
+.badge-reserved {
+    background-color: #C2383B !important; /* Менш яскравий червоний */
+    color: #FFFFFF !important;
+}
+
+.badge-login {
+    background-color: #3B82F6 !important; /* Синій */
+    color: #FFFFFF !important;
+}
+
+/* Стилі кнопки з контуром */
+.btn-outline-primary {
+    border-color: #4A90E2;
+    color: #4A90E2;
+}
+
+    .btn-outline-primary:hover {
+        background-color: #4A90E2;
+        color: #FFFFFF;
+    }
+
+/* Оновлені кнопки */
+.btn-extended {
+    border-radius: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+    .btn-extended:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+/* Стилі форм */
+.form-control {
+    color: #ddd;
+    background-color: #222;
+    border: 1px solid #555;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+    .form-control:focus {
+        color: #fff;
+        background-color: #333;
+        border-color: var(--accent-color);
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+    }
+
+/* Сітка місць */
+.seat-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); /* Кількість місць у рядку */
+    gap: 6px;
+    justify-content: center;
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+/* Основний стиль місць */
+.seat-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 2px solid var(--primary-color);
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+    /* Доступні місця */
+    .seat-btn.available {
+        background-color: #E6B800; /* Приглушений жовтий */
+        color: #000;
+    }
+
+        .seat-btn.available:hover {
+            background-color: #D9A600;
+            transform: scale(1.05);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+ }
+
+            .seat-btn.selected {
+    background-color: #3B82F6; /* Приглушений синій */
+    color: #fff;
+}
+
+        .seat-btn.selected:hover {
+            background-color: #2F6DC6;
+        }
+
+    /* Зарезервовані місця */
+    .seat-btn.reserved {
+        background-color: #C2383B; /* Червоний, але менш насичений */
+        color: #fff;
+        cursor: not-allowed;
+    }
+
+    /* Продані місця */
+    .seat-btn.sold {
+        background-color: #4A4A4A; /* Темно-сірий */
+        color: #999;
+        cursor: not-allowed;
+    }
+
+/* Футер */
+.footer {
+    background-color: var(--primary-color);
+    padding: 15px;
+    text-align: center;
+    color: var(--text-color);
+    box-shadow: 0px -4px 15px rgba(0, 0, 0, 0.15);
+}

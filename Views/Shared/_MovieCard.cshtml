@@ -1,30 +1,13 @@
 ﻿@model Data.Entities.Movie
 
-<div class="card movie-card bg-dark text-light shadow-lg me-3" style="width: 18rem; height: 28.2rem; margin-bottom: 1.5rem;">
-    <div class="card-header">
-        <img class="card-img" src="@Model.CoverImage" alt="@Model.Title" style="height: 20rem; object-fit: cover;" />
-    </div>
-    <div class="card-body d-flex flex-column justify-content-center">
-        <div>
-            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary btn-sm">
-                <i class="bi bi-info-square-fill"></i> Details
-            </a>
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary btn-sm">
-                <i class="bi bi-pencil-square"></i> Edit
-            </a>
-            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm">
-                <i class="bi bi-trash-fill"></i> Delete
-            </a>
-            <form method="post" asp-controller="Favorites" asp-action="Add" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="d-inline">
-                <button type="submit" class="btn btn-outline-success btn-sm">
-                    <i class="bi bi-heart-fill"></i> Add to Favorites
-                </button>
-            </form>
-            <form method="post" asp-controller="Favorites" asp-action="Remove" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="d-inline">
-                <button type="submit" class="btn btn-outline-danger btn-sm">
-                    <i class="bi bi-heartbreak-fill"></i> Remove from Favorites
-                </button>
-            </form>
+<a asp-action="Details" asp-route-id="@Model.Id" class="movie-card text-decoration-none">
+
+    <div class="card shadow-sm border-0 rounded overflow-hidden bg-transparent"
+         style="width: 15rem; height: 22rem; background-color: rgba(0, 0, 0, 0.3); transition: transform 0.3s ease-in-out;">
+        <img src="@Model.CoverImage" alt="@Model.Title" class="w-100" style="height: 18rem; object-fit: cover;">
+        <div class="card-body p-2">
+            <h5 class="card-title text-secondary fw-bold mb-1">@Model.Title</h5>
+            <p class="card-text text-light small">@Model.Duration mins</p>
         </div>
     </div>
-</div>
+</a>

@@ -4,17 +4,21 @@
     ViewData["Title"] = "Sessions";
 }
 
-<h1>Sessions</h1>
+<section class="container py-5">
+    <h1 class="text-center text-accent mb-4">Available Sessions</h1>
 
-<p>
-    <a class="btn btn-primary" asp-action="Create">Create New Session</a>
-</p>
+    <div class="text-center mb-4">
+        <a class="btn btn-outline-primary btn-extended" asp-action="Create">
+            <i class="bi bi-plus-circle"></i> Create New Session
+        </a>
+    </div>
 
-<div class="row">
-    @foreach (var session in Model)
-    {
-        <div class="col-md-4">
-            @await Html.PartialAsync("_SessionCard", session)
-        </div>
-    }
-</div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var session in Model)
+        {
+            <div class="col d-flex align-items-stretch">
+                @await Html.PartialAsync("_SessionCard", session)
+            </div>
+        }
+    </div>
+</section>

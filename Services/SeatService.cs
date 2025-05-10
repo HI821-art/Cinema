@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Core.Interfaces;
 using Data.Entities;
 using Data;
-
-namespace Cinema.Services;
 
 public class SeatService : ISeatService
 {
@@ -18,14 +17,16 @@ public class SeatService : ISeatService
 
     public bool ReserveSeat(int sessionId, int seatNumber, string userId)
     {
+        // Припускаємо, що SeatNumber зберігається як рядок
         var seat = _context.Seats.FirstOrDefault(s => s.SessionId == sessionId && s.SeatNumber == seatNumber.ToString());
-        if (seat == null || seat.IsBooked) return false;
+        if (seat == null || seat.IsBooked)
+            return false;
 
         seat.IsBooked = true;
         seat.UserId = userId;
         _context.SaveChanges();
 
-        // Send confirmation email
+        // Надсилання листа з підтвердженням
         var session = _context.Sessions.Include(s => s.Movie).FirstOrDefault(s => s.Id == sessionId);
         var user = _context.Users.FirstOrDefault(u => u.Id == userId);
 
@@ -74,5 +75,26 @@ public class SeatService : ISeatService
             .GroupBy(s => s.Session.Movie)
             .ToList()
             .Select(g => (g.Key!, g.AsEnumerable()));
+    }
+
+    public bool CancelReservation(int sessionId, int seatNumber, string userId)
+    {
+        // Шукаємо місце, використовуючи те ж представлення номери місця (рядок) та перевіряємо, що воно зарезервоване даним користувачем.
+        var seat = _context.Seats
+            .FirstOrDefault(s => s.SessionId == sessionId
+                              && s.SeatNumber == seatNumber.ToString()
+                              && s.UserId == userId);
+
+        if (seat == null)
+        {
+            return false;
+        }
+
+        // Скасовуємо резервацію: позначаємо місце як вільне
+        seat.IsBooked = false;
+        seat.UserId = null;
+
+        _context.SaveChanges();
+        return true;
     }
 }

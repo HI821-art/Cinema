@@ -88,7 +88,6 @@ namespace Cinema.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-   
 
 
 
@@ -180,7 +179,7 @@ namespace Cinema.Controllers
                 query = query.Where(m => m.Genre.Contains(genre));
             }
 
-            
+
             var movies = await query.Distinct().ToListAsync();
             return View("Index", movies);
         }
@@ -188,11 +187,5 @@ namespace Cinema.Controllers
 
 
 
-
-
-
-
-
     }
 }
-

@@ -2,68 +2,122 @@
 @inject UserManager<User> UserManager
 @using Data.Entities
 @using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
 
 @{
     ViewData["Title"] = "Session Details";
-    var currentCustomerId = ViewBag.CurrentCustomerId as string;
-    var isUserSignedIn = User?.Identity?.IsAuthenticated ?? false;
+    var currentCustomerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    var isUserSignedIn = User.Identity?.IsAuthenticated ?? false;
+    var availableSeats = Model.Seats?.Cast<Seat>().Count(s => !s.IsBooked);
+    var totalSeats = Model.Seats?.Cast<Seat>().Count();
 }
 
-<h2>@Model.Movie?.Title (@Model.StartTime.ToShortDateString() @Model.StartTime.ToShortTimeString())</h2>
+<section class="container py-5">
+    <h2 class="text-center text-accent mb-3">@Model.Movie?.Title</h2>
+    <p class="text-center text-muted">
+        <strong>@Model.StartTime.ToShortDateString()</strong> at <strong>@Model.StartTime.ToShortTimeString()</strong>
+    </p>
 
-<h4>Available Seats: @(Model.Seats.Count(s => !s.IsBooked)) / @Model.Seats.Count()</h4>
+    <h4 class="text-center mt-4">
+        Available Seats:
+        <span class="badge bg-success p-2">@availableSeats</span> /
+        <span class="badge bg-secondary p-2">@totalSeats</span>
+    </h4>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Seat Number</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var seat in Model.Seats.OrderBy(s => s.SeatNumber))
+    <div class="seat-grid mt-4">
+        @foreach (var seat in Model.Seats.Cast<Seat>().OrderBy(s => int.Parse(s.SeatNumber)))
         {
-            <tr>
-                <td>@seat.SeatNumber</td>
-                <td>
-                    @if (seat.IsBooked)
-                    {
-                        <span class="text-danger">Reserved</span>
-                    }
-                    else
-                    {
-                        <span class="text-success">Available</span>
-                    }
-                </td>
-                <td>
-                    @if (isUserSignedIn)
-                    {
-                        @if (!seat.IsBooked)
-                        {
-                            <form asp-action="Reserve" method="post" class="d-inline">
-                                <input type="hidden" name="sessionId" value="@Model.Id" />
-                                <input type="hidden" name="seatNumber" value="@seat.SeatNumber" />
-                                <button type="submit" class="btn btn-sm btn-primary">Reserve</button>
-                            </form>
-                        }
-                        else if (seat.UserId == currentCustomerId)
-                        {
-                            <span class="text-info">Your seat</span>
-                        }
-                    }
-                    else
-                    {
-                        <span class="text-warning">Log in to reserve</span>
-                    }
-                </td>
-            </tr>
+            /* Визначаємо класи для стану місця:
+            - "reserved": для місць, заброньованих іншим користувачем.
+                - "selected": для місць, зарезервованих поточним користувачем.
+                - "available": для вільних місць.
+                Крім того, якщо користувач увійшов у систему і місце доступне для дії, додаємо клас "interactive". */
+            var seatClass = "";
+            if (seat.IsBooked)
+            {
+                seatClass = seat.UserId == currentCustomerId ? "selected" : "reserved";
+            }
+            else
+            {
+                seatClass = "available";
+            }
+            var interactiveClass = (isUserSignedIn) ? "interactive" : "";
+            <div class="seat-btn @seatClass @interactiveClass"
+                 data-seat-number="@seat.SeatNumber"
+                 data-session-id="@Model.Id">
+                @seat.SeatNumber
+            </div>
         }
-    </tbody>
-</table>
-@if (isUserSignedIn)
-{
-    <a asp-action="ReservedSeats" class="btn btn-primary">View Your Reserved Seats</a>
-}
+    </div>
 
-<a asp-action="Index" class="btn btn-secondary">Back to Sessions</a>
+    <div class="text-center mt-4">
+        @if (isUserSignedIn)
+        {
+            <a asp-action="ReservedSeats" class="btn btn-outline-info btn-extended">
+                <i class="bi bi-eye"></i> View Your Reserved Seats
+            </a>
+        }
+        <a asp-action="Index" class="btn btn-outline-secondary btn-extended">
+            <i class="bi bi-arrow-left"></i> Back to Sessions
+        </a>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Знаходимо всі інтерактивні плитки місць
+            var interactiveSeats = document.querySelectorAll('.seat-btn.interactive');
+            interactiveSeats.forEach(function (seat) {
+                seat.addEventListener('click', function () {
+                    // Збираємо дані для запиту
+                    var sessionId = seat.getAttribute('data-session-id');
+                    var seatNumber = seat.getAttribute('data-seat-number');
+                    var token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+                    const data = new URLSearchParams();
+                    data.append('sessionId', sessionId);
+                    data.append('seatNumber', seatNumber);
+
+                    // Якщо місце має клас "selected", воно броньоване поточним користувачем і треба скасувати бронювання,
+                    // інакше – бронюємо місце.
+                    var isSelected = seat.classList.contains('selected');
+
+                    // Формуємо URL залежно від дії
+                    var url = isSelected
+                        ? '/Session/CancelReservation/' + sessionId + '/' + seatNumber
+                        : '/Session/Reserve';
+
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'RequestVerificationToken': token
+                        },
+                        body: data
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Request failed');
+                        }
+                        // Якщо дія пройшла успішно:
+                        if (isSelected) {
+                            // При скасуванні бронювання, видаляємо клас "selected" і додаємо "available"
+                            seat.classList.remove('selected');
+                            seat.classList.remove('reserved');
+                            seat.classList.add('available');
+                        } else {
+                            // При бронюванні, видаляємо клас "available" та додаємо "selected"
+                            seat.classList.remove('available');
+                            seat.classList.add('selected');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Помилка при обробці запиту.');
+                    });
+                });
+            });
+        });
+    </script>
+}

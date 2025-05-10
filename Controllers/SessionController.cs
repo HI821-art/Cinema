@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Data;
+using Core.Interfaces;
 using System.Security.Claims;
 using Data.Entities;
+using Data;
 
 namespace Cinema.Controllers
 {
@@ -17,7 +18,7 @@ namespace Cinema.Controllers
             _seatService = seatService;
         }
 
-        // GET: Session/Details/{id}
+      
         public IActionResult Details(int id)
         {
             var session = _seatService.GetSessionWithSeats(id);
@@ -30,7 +31,6 @@ namespace Cinema.Controllers
             return View(session);
         }
 
-        // POST: Session/Reserve
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Reserve(int sessionId, int seatNumber)
@@ -52,7 +52,6 @@ namespace Cinema.Controllers
             return RedirectToAction("Details", new { id = sessionId });
         }
 
-        // GET: Session/ReservedSeats
         public IActionResult ReservedSeats()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -65,7 +64,7 @@ namespace Cinema.Controllers
             return View(reservedSeats);
         }
 
-        // GET: Session/Index
+       
         public IActionResult Index()
         {
             var sessions = _context.Sessions
@@ -75,13 +74,12 @@ namespace Cinema.Controllers
             return View(sessions);
         }
 
-        // GET: Session/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Session/Create
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Session session)
@@ -95,7 +93,7 @@ namespace Cinema.Controllers
             return View(session);
         }
 
-        // GET: Session/Edit/{id}
+      
         public IActionResult Edit(int id)
         {
             var session = _context.Sessions.Find(id);
@@ -106,7 +104,7 @@ namespace Cinema.Controllers
             return View(session);
         }
 
-        // POST: Session/Edit/{id}
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Session session)
@@ -125,7 +123,7 @@ namespace Cinema.Controllers
             return View(session);
         }
 
-        // GET: Session/Delete/{id}
+       
         public IActionResult Delete(int id)
         {
             var session = _context.Sessions.Find(id);
@@ -136,7 +134,7 @@ namespace Cinema.Controllers
             return View(session);
         }
 
-        // POST: Session/Delete/{id}
+      
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
@@ -148,6 +146,30 @@ namespace Cinema.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction(nameof(Index));
+        }
+    
+    [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CancelReservation(int sessionId, int seatNumber)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
+            var canceled = _seatService.CancelReservation(sessionId, seatNumber, userId);
+            if (!canceled)
+            {
+                TempData["Error"] = "Не вдалося скасувати резервацію. Можливо, вона не існує або не належить вам.";
+            }
+            else
+            {
+                TempData["Success"] = "Резервацію скасовано успішно!";
+            }
+
+           
+            return RedirectToAction("ReservedSeats");
         }
     }
 }

@@ -1,22 +1,22 @@
 ﻿@model Data.Entities.Session
 
-<div class="card mb-3 bg-dark text-light shadow-lg">
+<div class="card session-card bg-dark text-light shadow-lg rounded-3">
     <div class="card-header">
         <h5 class="card-title">@Model.Movie?.Title</h5>
     </div>
     <div class="card-body">
-        <p class="card-text"><strong>Start Time:</strong> @Model.StartTime</p>
+        <p class="card-text"><strong>Start Time:</strong> @Model.StartTime.ToString("HH:mm")</p>
         <p class="card-text"><strong>Duration:</strong> @Model.Movie?.Duration min</p>
     </div>
     <div class="card-footer d-flex justify-content-between">
         <div>
-            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-info btn-sm me-1">
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-info btn-extended btn-sm">
                 <i class="bi bi-info-circle-fill"></i> Details
             </a>
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning btn-sm me-1">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning btn-extended btn-sm">
                 <i class="bi bi-pencil-fill"></i> Edit
             </a>
-            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm me-1">
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger btn-extended btn-sm">
                 <i class="bi bi-trash-fill"></i> Delete
             </a>
         </div>

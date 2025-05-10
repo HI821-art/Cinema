@@ -18,7 +18,7 @@ public class FavoritesServiceOptimized : IFavoriteService
         _userId = accessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 
-    public List<int> GetIds()
+    public List<int>? GetIds()
     {
         if (_userId != null) 
         {
