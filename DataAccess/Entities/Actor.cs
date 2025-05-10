@@ -1,0 +1,17 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace  Data.Entities
+{
+    public class Actor
+    {
+        public int Id { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string Biography { get; set; }
+
+        public ICollection<Movie>? Movies { get; set; } = new List<Movie>();
+    }
+}

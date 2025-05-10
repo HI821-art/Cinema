@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Data.Entities.Movie>
+
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<div class="container my-5">
+    <h1 class="text-center text-warning fw-bold">🎬 Latest Movies</h1>
+
+   
+    <form asp-action="Search" method="get" class="mb-4 bg-dark p-4 rounded-3 shadow">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="title" class="form-control shadow-sm rounded-pill bg-dark text-light" placeholder="🔍 Search by Title"
+                       value="@ViewContext.HttpContext.Request.Query["title"]" />
+            </div>
+            <div class="col-md-2">
+                <input type="number" name="year" class="form-control shadow-sm rounded-pill bg-dark text-light" placeholder="📅 Search by Year"
+                       value="@ViewContext.HttpContext.Request.Query["year"]" />
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="genre" class="form-control shadow-sm rounded-pill bg-dark text-light" placeholder="🎭 Search by Genre"
+                       value="@ViewContext.HttpContext.Request.Query["genre"]" />
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-danger w-100 fw-bold shadow rounded-pill">Search</button>
+            </div>
+        </div>
+    </form>
+
+ 
+    <div class="text-center mb-4">
+        <a class="btn btn-warning fw-bold px-4 py-2 shadow rounded-pill" asp-action="Create">
+            ➕ Create New Movie
+        </a>
+    </div>
+
+    
+    <div class="row">
+        @foreach (var movie in Model)
+        {
+            <div class="col-md-4 d-flex align-items-stretch mb-4">
+                @await Html.PartialAsync("_MovieCard", movie)
+            </div>
+        }
+    </div>
+</div>

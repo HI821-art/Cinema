@@ -1,0 +1,55 @@
+﻿@model IEnumerable<(Data.Entities.Movie Movie, IEnumerable<Data.Entities.Seat> Seats)>
+
+@{
+    ViewData["Title"] = "Your Reserved Seats";
+}
+
+<section class="container py-5">
+    <h2 class="text-center text-accent mb-4">Your Reserved Seats</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center" role="alert">
+            You have not reserved any seats yet.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-12 mb-4">
+                    <div class="card shadow-lg">
+                        <div class="card-header" style="background-color: var(--table-header-bg);">
+                            <h5 class="mb-0" style="color: var(--table-header-text);">
+                                @item.Movie.Title
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            @foreach (var seat in item.Seats)
+                            {
+                                <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-2">
+                                    <span class="fw-medium">Seat @seat.SeatNumber</span>
+                                    <form asp-action="CancelReservation" method="post" class="mb-0">
+                                        <input type="hidden" name="sessionId" value="@seat.SessionId" />
+                                        <input type="hidden" name="seatNumber" value="@seat.SeatNumber" />
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-outline-primary btn-sm">
+                                            Remove
+                                        </button>
+                                    </form>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <div class="text-center mt-4">
+        <a asp-action="Index" class="btn btn-outline-secondary btn-extended">
+            <i class="bi bi-arrow-left"></i> Back to Sessions
+        </a>
+    </div>
+</section>

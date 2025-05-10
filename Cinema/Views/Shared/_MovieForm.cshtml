@@ -1,0 +1,55 @@
+﻿@model Core.DTOs.MovieCreateDto
+
+<div class="mb-3">
+    <label asp-for="Title" class="form-label"></label>
+    <input asp-for="Title" class="form-control" placeholder="Enter movie title" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Year" class="form-label"></label>
+    <input asp-for="Year" class="form-control" placeholder="Enter release year" />
+    <span asp-validation-for="Year" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Description" class="form-label"></label>
+    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter description"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Genre" class="form-label"></label>
+    <input asp-for="Genre" class="form-control" placeholder="Enter genre" />
+    <span asp-validation-for="Genre" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Duration" class="form-label"></label>
+    <input asp-for="Duration" class="form-control" placeholder="Enter duration in minutes" />
+    <span asp-validation-for="Duration" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="CoverImage" class="form-label"></label>
+    <input asp-for="CoverImage" class="form-control" placeholder="Enter cover image URL" />
+    <span asp-validation-for="CoverImage" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Country" class="form-label"></label>
+    <input asp-for="Country" class="form-control" placeholder="Enter country" />
+    <span asp-validation-for="Country" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="TrailerUrl" class="form-label"></label>
+    <input asp-for="TrailerUrl" class="form-control" placeholder="Enter trailer URL" />
+    <span asp-validation-for="TrailerUrl" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="DirectorId" class="form-label"></label>
+    <input asp-for="DirectorId" class="form-control" placeholder="Enter director ID" />
+    <span asp-validation-for="DirectorId" class="text-danger"></span>
+</div>

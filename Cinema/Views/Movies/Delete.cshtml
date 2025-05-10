@@ -1,0 +1,70 @@
+﻿@model Data.Entities.Movie
+
+@{
+    ViewData["Title"] = "Delete Movie";
+}
+
+<section class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+
+            <div class="card shadow-sm border-0 rounded-3 bg-dark text-light p-4">
+                <h1 class="text-center text-accent">@ViewData["Title"]</h1>
+                <h3 class="text-center my-3">Are you sure you want to delete this?</h3>
+                <h4 class="text-light">Movie</h4>
+                <hr class="bg-light" />
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Title)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Title)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Year)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Year)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Genre)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Genre)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Duration)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Duration)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Country)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Country)
+                    </dd>
+                </dl>
+
+                
+                <form asp-action="Delete" class="text-center">
+                    <input type="hidden" asp-for="Id" />
+                   
+                    <button type="submit" class="btn btn-outline-danger btn-extended me-2 mb-2">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                   
+                    <a href="@(ViewBag.ReturnUrl ?? '/')" class="btn btn-outline-secondary btn-extended mb-2">
+                        <i class="bi bi-arrow-left"></i> Back
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

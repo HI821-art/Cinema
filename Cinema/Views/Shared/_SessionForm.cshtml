@@ -1,0 +1,15 @@
+﻿@model Data.Entities.Session
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="mb-3">
+    <label asp-for="StartTime" class="form-label text-light"></label>
+    <input asp-for="StartTime" class="form-control bg-dark text-light" />
+    <span asp-validation-for="StartTime" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="MovieId" class="form-label text-light"></label>
+    <select asp-for="MovieId" class="form-select bg-dark text-light" asp-items="ViewBag.Movies"></select>
+    <span asp-validation-for="MovieId" class="text-danger"></span>
+</div>

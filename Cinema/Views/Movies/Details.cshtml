@@ -1,0 +1,101 @@
+﻿@model Data.Entities.Movie
+
+@using Microsoft.AspNetCore.WebUtilities
+@{
+    string embedUrl = "";
+    if (!string.IsNullOrEmpty(Model.TrailerUrl))
+    {
+        var uri = new Uri(Model.TrailerUrl);
+        var query = QueryHelpers.ParseQuery(uri.Query);
+        if (query.ContainsKey("v"))
+        {
+            var videoId = query["v"].ToString();
+            
+            embedUrl = $"https://www.youtube-nocookie.com/embed/{videoId}?rel=0";
+        }
+        else
+        {
+            embedUrl = Model.TrailerUrl;
+        }
+    }
+}
+
+
+
+<div class="container py-5 text-light">
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <img src="@Model.CoverImage" class="img-fluid rounded shadow" alt="@Model.Title" />
+        </div>
+        <div class="col-md-8">
+            <h1 class="fw-bold text-warning">@Model.Title</h1>
+            <p>
+                <strong>Genre:</strong> @Model.Genre<br />
+                <strong>Year:</strong> @Model.Year<br />
+            </p>
+            <p class="lead">@Model.Description</p>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="text-warning">Trailer</h2>
+            @if (!string.IsNullOrEmpty(embedUrl))
+            {
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item rounded shadow" src="@embedUrl" allowfullscreen></iframe>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">No trailer available.</p>
+            }
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="text-warning">Cast</h2>
+            @if (Model.Actors != null && Model.Actors.Any())
+            {
+                <p>@string.Join(", ", Model.Actors.Select(actor => actor.Name))</p>
+            }
+            else
+            {
+                <p class="text-muted">No cast information available.</p>
+            }
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning btn-extended btn-sm me-1">
+                <i class="bi bi-pencil-fill"></i> Edit
+            </a>
+
+            <form method="post" asp-action="Delete" asp-route-id="@Model.Id" class="d-inline">
+                <a asp-action="Delete" asp-route-id="@Model.Id" type="submit" class="btn btn-outline-warning btn-extended btn-sm me-1">
+                    <i class="bi bi-trash-fill"></i> Delete
+                </a>
+            </form>
+
+            
+            <form method="post" asp-controller="Favorites" asp-action="Add" asp-route-id="@Model.Id" class="d-inline">
+                <button type="submit" class="btn btn-outline-warning btn-extended btn-sm me-1">
+                    <i class="bi bi-heart-fill"></i> Add to Favorites
+                </button>
+            </form>
+
+          
+            <a asp-action="Index" class="btn btn-outline-warning btn-extended btn-sm">
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

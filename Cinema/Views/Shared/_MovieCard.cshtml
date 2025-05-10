@@ -1,0 +1,13 @@
+﻿@model Data.Entities.Movie
+
+<a asp-action="Details" asp-route-id="@Model.Id" class="movie-card text-decoration-none">
+
+    <div class="card shadow-sm border-0 rounded overflow-hidden bg-transparent"
+         style="width: 15rem; height: 22rem; background-color: rgba(0, 0, 0, 0.3); transition: transform 0.3s ease-in-out;">
+        <img src="@Model.CoverImage" alt="@Model.Title" class="w-100" style="height: 18rem; object-fit: cover;">
+        <div class="card-body p-2">
+            <h5 class="card-title text-secondary fw-bold mb-1">@Model.Title</h5>
+            <p class="card-text text-light small">@Model.Duration mins</p>
+        </div>
+    </div>
+</a>

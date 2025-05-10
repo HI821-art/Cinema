@@ -1,0 +1,28 @@
+﻿@using Data.Entities
+@model IEnumerable<Movie>
+
+<section class="container py-5">
+    <h1 class="text-center text-accent mb-4">Favorite Movies</h1>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center">You have no favorite movies yet.</p>
+        <div class="text-center">
+            <a asp-controller="Movies" asp-action="Index" class="btn btn-outline-primary btn-extended">
+                <i class="bi bi-arrow-left"></i> Back to Movies
+            </a>
+        </div>
+    }
+    else
+    {
+      
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+            @foreach (var movie in Model)
+            {
+                <div class="col d-flex align-items-stretch">
+                    @await Html.PartialAsync("_MovieCard", movie)
+                </div>
+            }
+        </div>
+    }
+</section>
