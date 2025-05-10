@@ -16,17 +16,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 string? connStr = builder.Configuration.GetConnectionString("SomeDb");
-if (string.IsNullOrEmpty(connStr))
-{
-    throw new InvalidOperationException("The connection string 'SomeDb' is not defined.");
-}
+builder.Services.AddDbContext<MovieDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SomeDb")));
 
 // Реєстрація контролерів та UI
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<MovieDbContext>(options =>
-    options.UseSqlServer(connStr, b => b.MigrationsAssembly("DataAccess")));
+    options.UseSqlServer(connStr, b => b.MigrationsAssembly("Cinema")));
 
 // Налаштування Identity
 builder.Services.AddIdentity<User, IdentityRole>(options =>
